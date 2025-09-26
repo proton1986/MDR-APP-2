@@ -2,35 +2,71 @@
 
 // npm install lexical @lexical/react @lexical/rich-text @lexical/list @lexical/link @lexical/code @lexical/table @lexical/selection @lexical/html
 import React, { useState, useEffect } from "react"
-// npm install lexical @lexical/react @lexical/rich-text @lexical/list @lexical/link @lexical/code @lexical/table @lexical/selection @lexical/html
-import React, { useState, useEffect } from "react"
-import { LexicalComposer } from "@lexical/react/LexicalComposer"
-import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin"
-import { HistoryPlugin } from "@lexical/react/LexicalHistoryPlugin"
-import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin"
-import { ContentEditable } from "@lexical/react/LexicalContentEditable"
-import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
-import { FORMAT_TEXT_COMMAND, INDENT_CONTENT_COMMAND, OUTDENT_CONTENT_COMMAND, $getSelection, $isRangeSelection, $createParagraphNode } from "lexical"
-import { INSERT_ORDERED_LIST_COMMAND, INSERT_UNORDERED_LIST_COMMAND, REMOVE_LIST_COMMAND, ListItemNode, ListNode, $isListNode } from "@lexical/list"
-import { INSERT_TABLE_COMMAND, TableCellNode, TableNode, TableRowNode } from "@lexical/table"
-import { HeadingNode, QuoteNode, $createHeadingNode, $createQuoteNode } from "@lexical/rich-text"
+import {
+  LexicalComposer,
+  RichTextPlugin,
+  ContentEditable,
+  HistoryPlugin,
+  OnChangePlugin,
+  useLexicalComposerContext,
+} from "@lexical/react"
+import { HeadingNode, QuoteNode } from "@lexical/rich-text"
+import { ListItemNode, ListNode } from "@lexical/list"
 import { LinkNode, AutoLinkNode, $createLinkNode } from "@lexical/link"
 import { CodeHighlightNode, CodeNode } from "@lexical/code"
-import { $setBlocksType } from "@lexical/selection"
+import { TableCellNode, TableNode, TableRowNode } from "@lexical/table"
 import { $generateHtmlFromNodes } from "@lexical/html"
 import { LexicalErrorBoundary } from "@lexical/react/LexicalErrorBoundary"
-  import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin"
-  import { ContentEditable } from "@lexical/react/LexicalContentEditable"
-  import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
-  import { FORMAT_TEXT_COMMAND, INDENT_CONTENT_COMMAND, OUTDENT_CONTENT_COMMAND, $getSelection, $isRangeSelection, $createParagraphNode } from "lexical"
-  import { INSERT_ORDERED_LIST_COMMAND, INSERT_UNORDERED_LIST_COMMAND, REMOVE_LIST_COMMAND, ListItemNode, ListNode, $isListNode } from "@lexical/list"
-  import { INSERT_TABLE_COMMAND, TableCellNode, TableNode, TableRowNode } from "@lexical/table"
-  import { HeadingNode, QuoteNode, $createHeadingNode, $createQuoteNode } from "@lexical/rich-text"
-  import { LinkNode, AutoLinkNode, $createLinkNode } from "@lexical/link"
-  import { CodeHighlightNode, CodeNode } from "@lexical/code"
-  import { $setBlocksType } from "@lexical/selection"
-  import { $generateHtmlFromNodes } from "@lexical/html"
-  import { LexicalErrorBoundary } from "@lexical/react/LexicalErrorBoundary"
+import {
+  FORMAT_TEXT_COMMAND,
+  INDENT_CONTENT_COMMAND,
+  OUTDENT_CONTENT_COMMAND,
+  INSERT_ORDERED_LIST_COMMAND,
+  INSERT_UNORDERED_LIST_COMMAND,
+  REMOVE_LIST_COMMAND,
+  $getSelection,
+  $isRangeSelection,
+  $createParagraphNode,
+} from "lexical"
+import { INSERT_TABLE_COMMAND } from "@lexical/table"
+import { $createHeadingNode, $createQuoteNode } from "@lexical/rich-text"
+import { $setBlocksType } from "@lexical/selection"
+import { $isListNode } from "@lexical/list"
+
+// Theme for the editor
+const theme = {
+  ltr: "ltr",
+  rtl: "rtl",
+  placeholder: "editor-placeholder",
+  paragraph: "editor-paragraph",
+  quote: "editor-quote",
+  heading: {
+    h1: "editor-heading-h1",
+    h2: "editor-heading-h2",
+    h3: "editor-heading-h3",
+    h4: "editor-heading-h4",
+    h5: "editor-heading-h5",
+  },
+  list: {
+    nested: {
+      listitem: "editor-nested-listitem",
+    },
+    ol: "editor-list-ol",
+    ul: "editor-list-ul",
+    listitem: "editor-listitem",
+  },
+  image: "editor-image",
+  link: "editor-link",
+  text: {
+    bold: "editor-text-bold",
+    italic: "editor-text-italic",
+    overflowed: "editor-text-overflowed",
+    hashtag: "editor-text-hashtag",
+    underline: "editor-text-underline",
+    strikethrough: "editor-text-strikethrough",
+    underlineStrikethrough: "editor-text-underlineStrikethrough",
+    code: "editor-text-code",
+  },
   code: "editor-code",
   codeHighlight: {
     atrule: "editor-tokenAttr",
