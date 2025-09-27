@@ -19,7 +19,7 @@ import {
 } from "@/components/ui/dialog"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Checkbox } from "@/components/ui/checkbox"
-import { Calendar, Plus, Search, Edit, Trash2, Eye, MapPin, Clock, Users } from "lucide-react"
+import { Calendar, Plus, Search, CreditCard as Edit, Trash2, Eye, MapPin, Clock, Users } from "lucide-react"
 
 interface Activity {
   id: string

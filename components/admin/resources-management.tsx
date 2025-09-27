@@ -19,19 +19,7 @@ import {
 } from "@/components/ui/dialog"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Checkbox } from "@/components/ui/checkbox"
-import { 
-  FolderOpen, 
-  Plus, 
-  Search, 
-  Edit, 
-  Trash2, 
-  Download, 
-  Upload, 
-  FileText, 
-  File, 
-  Image,
-  Calendar
-} from "lucide-react"
+import { FolderOpen, Plus, Search, CreditCard as Edit, Trash2, Download, Upload, FileText, File, Image, Calendar } from "lucide-react"
 
 interface Resource {
   id: string

@@ -8,7 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Checkbox } from "@/components/ui/checkbox"
-import { MessageSquare, Search, Edit, Trash2, Eye, Tag, ThumbsUp, ThumbsDown, Lightbulb } from "lucide-react"
+import { MessageSquare, Search, CreditCard as Edit, Trash2, Eye, Tag, ThumbsUp, ThumbsDown, Lightbulb } from "lucide-react"
 
 interface Feedback {
   id: string

@@ -19,19 +19,7 @@ import {
 } from "@/components/ui/dialog"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Checkbox } from "@/components/ui/checkbox"
-import { 
-  Phone, 
-  Plus, 
-  Search, 
-  Edit, 
-  Trash2, 
-  Shield, 
-  Hospital, 
-  Flame, 
-  Car,
-  Building,
-  AlertTriangle
-} from "lucide-react"
+import { Phone, Plus, Search, CreditCard as Edit, Trash2, Shield, Hospital, Flame, Car, Building, TriangleAlert as AlertTriangle } from "lucide-react"
 
 interface Hotline {
   id: string

@@ -20,17 +20,7 @@ import {
 } from "@/components/ui/dialog"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Checkbox } from "@/components/ui/checkbox"
-import { 
-  MapPin, 
-  Plus, 
-  Search, 
-  Edit, 
-  Trash2, 
-  Eye, 
-  Filter,
-  MoreHorizontal,
-  AlertTriangle
-} from "lucide-react"
+import { MapPin, Plus, Search, CreditCard as Edit, Trash2, Eye, Filter, MoveHorizontal as MoreHorizontal, TriangleAlert as AlertTriangle } from "lucide-react"
 
 interface Incident {
   id: string

@@ -10,7 +10,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Checkbox } from "@/components/ui/checkbox"
-import { Activity, Plus, Search, Edit, Trash2, Eye, Users, Clock } from "lucide-react"
+import { Activity, Plus, Search, CreditCard as Edit, Trash2, Eye, Users, Clock } from "lucide-react"
 
 interface ResponseTask {
   id: string

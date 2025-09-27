@@ -7,7 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { FileText, Search, Download, Eye, BarChart3, Users, Calendar } from "lucide-react"
+import { FileText, Search, Download, Eye, ChartBar as BarChart3, Users, Calendar } from "lucide-react"
 
 interface Survey {
   id: string

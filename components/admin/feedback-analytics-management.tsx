@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { BarChart3, PieChart, TrendingUp, MessageSquare, ThumbsUp, ThumbsDown, Calendar } from "lucide-react"
+import { ChartBar as BarChart3, ChartPie as PieChart, TrendingUp, MessageSquare, ThumbsUp, ThumbsDown, Calendar } from "lucide-react"
 
 export default function FeedbackAnalyticsManagement() {
   const [timeRange, setTimeRange] = useState("30")
