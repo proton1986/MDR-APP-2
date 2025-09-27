@@ -1,0 +1,94 @@
+Build a Management Component for Admin Panel Navigation Sidebar.
+
+
+the following menu items:
+
+Incident Map
+Response Tracking
+Public Feedback
+Feedback Analytics
+Survey Responses
+News & Updates
+Activities
+Gallery
+Videos
+Resources
+Maps
+
+
+Hotline Numbers
+
+Core Functionality for Management Component
+Each menu item should open a management interface with the following:
+
+List View:
+
+Display all records in a paginated, searchable, and sortable table.
+
+Include columns like Title/Name, Date Created, Status, Actions.
+
+Add / Edit / Delete (CRUD):
+
+Modal or dedicated form for creating and editing records.
+
+Each record should have metadata: Created By, Date Created, Last Modified, Modified By.
+
+Soft delete preferred (flag as inactive instead of hard delete).
+
+Bulk Actions:
+
+Select multiple records for deletion, publishing, or archiving.
+
+Filters & Search:
+
+Filter by status (Active, Archived, Pending).
+
+Keyword search.
+
+Specific Features by Module
+
+Incident Map: Manage incidents with fields (Location, Description, Severity, Status, Reported Date). Must integrate with map coordinates (Google Maps/Leaflet).
+
+Response Tracking: Assign responders, track progress, update status (Ongoing, Completed, Pending).
+
+Public Feedback: Display feedback entries, allow tagging (Positive, Negative, Suggestion).
+
+Feedback Analytics: Show charts/graphs (bar, pie, line) based on feedback data.
+
+Survey Responses: Table of survey results with export to CSV/Excel.
+
+News & Updates: CRUD for news posts (title, content, images, published status).
+
+Activities: Manage activities/events with fields (Title, Date, Venue, Description).
+
+Gallery: Upload images/videos with tags and album grouping.
+
+Videos: Embed video links or upload files.
+
+Resources: Upload documents (PDF, DOC, XLS) with categories.
+
+Maps: Manage disaster-prone area maps (upload shapefiles, images, or links).
+
+Hotline Numbers (Admin Section): Manage emergency contacts with fields (Agency, Contact Person, Phone Number, Type).
+
+UI/UX Guidelines
+
+Use a clean dashboard layout with sidebar on the left and content area on the right.
+
+Forms should have validation and error messages.
+
+Use modals for quick add/edit; full-page forms for complex modules (Incident Map, Response Tracking).
+
+Use role-based access control (only admins can access Hotline Numbers and News Updates).
+
+Tech Stack (suggestion)
+
+Frontend: React (with TailwindCSS, Radix-ui).
+
+Backend: Node.js
+
+Database: PostgreSQL supabase.
+
+Authentication: supabase.
+
+Extra: API endpoints for mobile app integration.
