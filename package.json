@@ -71,7 +71,7 @@
     "react-dom": "^19",
     "react-firebase-hooks": "latest",
     "react-hook-form": "^7.63.0",
-    "react-icons": "latest",
+    "react-icons": "^5.5.0",
     "react-resizable-panels": "latest",
     "react-toastify": "^11.0.5",
     "recharts": "latest",

@@ -3,6 +3,7 @@ import TeamsManagement from "./admin/teams-management"
 import SchedulesManagement from "./admin/schedules-management"
 import AlertsManagement from "./admin/alerts-management"
 import IncidentsManagement from "./admin/incidents-management"
+import ManagementDashboard from "./admin/management-dashboard"
 // Import other management components as they are created
 
 interface AdminContentProps {
@@ -60,6 +61,8 @@ export default function AdminContent({ activeSection }: AdminContentProps) {
         return <SettingsManagement />
       case "profile":
         return <ProfileManagement />
+      case "management":
+        return <ManagementDashboard />
       default:
         return <DashboardContent />
     }

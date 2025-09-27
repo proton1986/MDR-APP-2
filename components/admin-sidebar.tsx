@@ -32,6 +32,7 @@ export default function AdminSidebar({ isOpen, onClose, activeSection, onSection
     { id: "maps", icon: "fas fa-map-marked", label: "Maps" },
     { id: "hotlines", icon: "fas fa-phone-alt", label: "Hotline Numbers" },
     // Admin section
+    { id: "management", icon: "fas fa-cogs", label: "Management Center" },
     { id: "admin", icon: "fas fa-user-shield", label: "Admin" },
     { id: "settings", icon: "fas fa-cog", label: "General Settings" },
     { id: "profile", icon: "fas fa-user", label: "Profile" },
