@@ -40,7 +40,7 @@ import {
   Tag,
   Hash
 } from "lucide-react"
-import { toast } from "@/hooks/use-toast"
+import { useToast } from "@/hooks/use-toast"
 
 interface GalleryImage {
   id: number
@@ -82,6 +82,9 @@ export default function GalleryManagement() {
     tags: "",
   })
 
+  // Fix: Destructure toast from useToast
+  const { toast } = useToast();
+
   useEffect(() => {
     fetchImages()
   }, [])
@@ -89,10 +92,7 @@ export default function GalleryManagement() {
   const fetchImages = async () => {
     try {
       setLoading(true)
-      const { data, error } = await supabase
-        .from("gallery_images")
-        .select("*")
-        .order("created_at", { ascending: false })
+      const { data, error } = await supabase.from("gallery_images").select("*").order("created_at", { ascending: false })
 
       if (error) throw error
       setImages(data || [])

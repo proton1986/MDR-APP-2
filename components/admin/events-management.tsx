@@ -33,7 +33,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 import { Calendar, Clock, MapPin, Users, Plus, Search, Edit, Trash2, Filter } from "lucide-react"
-import { toast } from "@/hooks/use-toast"
+import { useToast } from "@/hooks/use-toast"
 
 interface Event {
   id: number
@@ -79,6 +79,9 @@ export default function EventsManagement() {
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
   )
 
+  // Fix: Destructure toast from useToast
+  const { toast } = useToast();
+
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -100,10 +103,7 @@ export default function EventsManagement() {
   const fetchEvents = async () => {
     try {
       setLoading(true)
-      const { data, error } = await supabase
-        .from("events_activities")
-        .select("*")
-        .order("created_at", { ascending: false })
+      const { data, error } = await supabase.from("events_activities").select("*").order("created_at", { ascending: false })
 
       if (error) throw error
       setEvents(data || [])

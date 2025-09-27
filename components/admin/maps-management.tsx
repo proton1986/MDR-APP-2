@@ -40,7 +40,7 @@ import {
   Layers,
   Download
 } from "lucide-react"
-import { toast } from "@/hooks/use-toast"
+import { useToast } from "@/hooks/use-toast"
 
 interface MapItem {
   id: number
@@ -103,10 +103,7 @@ export default function MapsManagement() {
   const fetchMaps = async () => {
     try {
       setLoading(true)
-      const { data, error } = await supabase
-        .from("maps")
-        .select("*")
-        .order("created_at", { ascending: false })
+      const { data, error } = await supabase.from("maps").select("*").order("created_at", { ascending: false })
 
       if (error) throw error
       setMaps(data || [])
@@ -175,6 +172,7 @@ export default function MapsManagement() {
         toast({
           title: "Success",
           description: "Map updated successfully",
+          variant: ""
         })
         setIsEditDialogOpen(false)
       } else {
@@ -186,6 +184,7 @@ export default function MapsManagement() {
         toast({
           title: "Success",
           description: "Map uploaded successfully",
+          variant: ""
         })
         setIsCreateDialogOpen(false)
       }
@@ -235,6 +234,7 @@ export default function MapsManagement() {
       toast({
         title: "Success",
         description: "Map deleted successfully",
+        variant: ""
       })
       fetchMaps()
     } catch (error) {
@@ -827,3 +827,7 @@ export default function MapsManagement() {
     </main>
   )
 }
+function toast(arg0: { title: string; description: string; variant: string }) {
+  throw new Error("Function not implemented.")
+}
+

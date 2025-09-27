@@ -1,6 +1,7 @@
 "use client"
 
-import { useState } from "react"
+import * as React from "react"
+import type { JSX } from "react"
 import IncidentMapManagement from "./incident-map-management"
 import ResponseTrackingManagement from "./response-tracking-management"
 import PublicFeedbackManagement from "./public-feedback-management"
@@ -19,35 +20,35 @@ interface ManagementContentProps {
 }
 
 export default function ManagementContent({ activeSection }: ManagementContentProps) {
+  const components: { [key: string]: JSX.Element } = {
+    "activities-management": <ActivitiesManagement />,
+    "alerts-management": <div>Alerts Management Component</div>,
+    "announcement-management": <div>Announcement Management Component</div>,
+    "contact-management": <div>Contact Management Component</div>,
+    "documents-management": <div>Documents Management Component</div>,
+    "events-management": <div>Events Management Component</div>,
+    "feedback-analytics-management": <FeedbackAnalyticsManagement />,
+    "gallery-management": <GalleryManagement />,
+    "hotline-management": <HotlineManagement />,
+    "image-upload": <div>Image Upload Component</div>,
+    "incident-management": <div>Incident Management Component</div>,
+    "incident-map-management": <IncidentMapManagement />,
+    "incidents-management": <div>Incidents Management Component</div>,
+    "maps-management": <MapsManagement />,
+    "news-management": <NewsManagement />,
+    "personnel-management": <div>Personnel Management Component</div>,
+    "public-feedback-management": <PublicFeedbackManagement />,
+    "resources-management": <ResourcesManagement />,
+    "response-tracking-management": <ResponseTrackingManagement />,
+    "schedules-management": <div>Schedules Management Component</div>,
+    "survey-responses-management": <SurveyResponsesManagement />,
+    "teams-management": <div>Teams Management Component</div>,
+    "video-management": <VideoManagement />,
+    "volunteer-management": <div>Volunteer Management Component</div>
+  }
+
   const renderContent = () => {
-    switch (activeSection) {
-      case "incident-map":
-        return <IncidentMapManagement />
-      case "response-tracking":
-        return <ResponseTrackingManagement />
-      case "public-feedback":
-        return <PublicFeedbackManagement />
-      case "feedback-analytics":
-        return <FeedbackAnalyticsManagement />
-      case "survey-responses":
-        return <SurveyResponsesManagement />
-      case "news-updates":
-        return <NewsManagement />
-      case "activities":
-        return <ActivitiesManagement />
-      case "gallery":
-        return <GalleryManagement />
-      case "videos":
-        return <VideoManagement />
-      case "resources":
-        return <ResourcesManagement />
-      case "maps":
-        return <MapsManagement />
-      case "hotline-numbers":
-        return <HotlineManagement />
-      default:
-        return <DefaultDashboard />
-    }
+    return components[activeSection] || <DefaultDashboard />
   }
 
   return (

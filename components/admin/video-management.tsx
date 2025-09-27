@@ -41,7 +41,7 @@ import {
   Eye,
   Upload
 } from "lucide-react"
-import { toast } from "@/hooks/use-toast"
+import { useToast } from "@/hooks/use-toast"
 
 interface VideoItem {
   id: number
@@ -91,6 +91,9 @@ export default function VideoManagement() {
     duration: "",
     status: "draft",
   })
+
+  // Fix: Destructure toast from useToast
+  const { toast } = useToast();
 
   useEffect(() => {
     fetchVideos()
