@@ -1,15 +1,17 @@
+
 "use client"
+
+import type { TextFormatType } from "lexical"
+import type { HeadingTagType } from "@lexical/rich-text"
 
 // npm install lexical @lexical/react @lexical/rich-text @lexical/list @lexical/link @lexical/code @lexical/table @lexical/selection @lexical/html
 import React, { useState, useEffect } from "react"
-import {
-  LexicalComposer,
-  RichTextPlugin,
-  ContentEditable,
-  HistoryPlugin,
-  OnChangePlugin,
-  useLexicalComposerContext,
-} from "@lexical/react"
+import { LexicalComposer } from "@lexical/react/LexicalComposer"
+import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin"
+import { ContentEditable } from "@lexical/react/LexicalContentEditable"
+import { HistoryPlugin } from "@lexical/react/LexicalHistoryPlugin"
+import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin"
+import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
 import { HeadingNode, QuoteNode } from "@lexical/rich-text"
 import { ListItemNode, ListNode } from "@lexical/list"
 import { LinkNode, AutoLinkNode, $createLinkNode } from "@lexical/link"
@@ -21,13 +23,15 @@ import {
   FORMAT_TEXT_COMMAND,
   INDENT_CONTENT_COMMAND,
   OUTDENT_CONTENT_COMMAND,
-  INSERT_ORDERED_LIST_COMMAND,
-  INSERT_UNORDERED_LIST_COMMAND,
-  REMOVE_LIST_COMMAND,
   $getSelection,
   $isRangeSelection,
   $createParagraphNode,
 } from "lexical"
+import {
+  INSERT_ORDERED_LIST_COMMAND,
+  INSERT_UNORDERED_LIST_COMMAND,
+  REMOVE_LIST_COMMAND,
+} from "@lexical/list"
 import { INSERT_TABLE_COMMAND } from "@lexical/table"
 import { $createHeadingNode, $createQuoteNode } from "@lexical/rich-text"
 import { $setBlocksType } from "@lexical/selection"
@@ -118,7 +122,15 @@ const nodes = [
 ]
 
 // Toolbar Button Component
-const ToolbarButton = ({ onClick, active, children, title, disabled = false }) => (
+type ToolbarButtonProps = {
+  onClick: React.MouseEventHandler<HTMLButtonElement>
+  active: boolean
+  children: React.ReactNode
+  title: string
+  disabled?: boolean
+}
+
+const ToolbarButton: React.FC<ToolbarButtonProps> = ({ onClick, active, children, title, disabled = false }) => (
   <button
     type="button"
     onClick={onClick}
@@ -159,12 +171,12 @@ function ToolbarPlugin() {
 
       if (elementDOM !== null) {
         if ($isListNode(element)) {
-          const type = element.getTag()
-          setBlockType(type)
+          // ListNode has getTag
+          setBlockType((element as any).getTag())
         } else {
           const type = element.getType()
-          if (type.startsWith("heading")) {
-            setBlockType(element.getTag())
+          if (type.startsWith("heading") && typeof (element as any).getTag === "function") {
+            setBlockType((element as any).getTag())
           } else {
             setBlockType(type)
           }
@@ -181,11 +193,12 @@ function ToolbarPlugin() {
     })
   }, [editor, updateToolbar])
 
-  const formatText = (format) => {
+
+  const formatText = (format: TextFormatType) => {
     editor.dispatchCommand(FORMAT_TEXT_COMMAND, format)
   }
 
-  const formatHeading = (headingSize) => {
+  const formatHeading = (headingSize: HeadingTagType) => {
     if (blockType !== headingSize) {
       editor.update(() => {
         const selection = $getSelection()
@@ -209,17 +222,17 @@ function ToolbarPlugin() {
 
   const formatBulletList = () => {
     if (blockType !== "ul") {
-      editor.dispatchCommand(INSERT_UNORDERED_LIST_COMMAND)
+      editor.dispatchCommand(INSERT_UNORDERED_LIST_COMMAND, undefined)
     } else {
-      editor.dispatchCommand(REMOVE_LIST_COMMAND)
+      editor.dispatchCommand(REMOVE_LIST_COMMAND, undefined)
     }
   }
 
   const formatNumberedList = () => {
     if (blockType !== "ol") {
-      editor.dispatchCommand(INSERT_ORDERED_LIST_COMMAND)
+      editor.dispatchCommand(INSERT_ORDERED_LIST_COMMAND, undefined)
     } else {
-      editor.dispatchCommand(REMOVE_LIST_COMMAND)
+      editor.dispatchCommand(REMOVE_LIST_COMMAND, undefined)
     }
   }
 
@@ -248,7 +261,7 @@ function ToolbarPlugin() {
   }
 
   const insertTable = () => {
-    editor.dispatchCommand(INSERT_TABLE_COMMAND, { rows: 3, columns: 3 })
+    editor.dispatchCommand(INSERT_TABLE_COMMAND, { rows: "3", columns: "3" })
   }
 
   return (
@@ -315,21 +328,21 @@ function ToolbarPlugin() {
 
       <div className="divider" />
 
-      <ToolbarButton onClick={() => editor.dispatchCommand(INDENT_CONTENT_COMMAND)} title="Indent">
+      <ToolbarButton onClick={() => editor.dispatchCommand(INDENT_CONTENT_COMMAND, undefined)} active={false} title="Indent">
         →
       </ToolbarButton>
 
-      <ToolbarButton onClick={() => editor.dispatchCommand(OUTDENT_CONTENT_COMMAND)} title="Outdent">
+      <ToolbarButton onClick={() => editor.dispatchCommand(OUTDENT_CONTENT_COMMAND, undefined)} active={false} title="Outdent">
         ←
       </ToolbarButton>
 
       <div className="divider" />
 
-      <ToolbarButton onClick={insertLink} title="Insert Link">
+      <ToolbarButton onClick={insertLink} active={false} title="Insert Link">
         🔗
       </ToolbarButton>
 
-      <ToolbarButton onClick={insertTable} title="Insert Table">
+      <ToolbarButton onClick={insertTable} active={false} title="Insert Table">
         📊
       </ToolbarButton>
     </div>
@@ -342,26 +355,25 @@ function Placeholder() {
 }
 
 // Editor Component
-export default function PageEditor({
-  initialContent = "",
-  onChange,
-}: {
+interface PageEditorProps {
   initialContent?: string
   onChange?: (content: string) => void
-}) {
-  const [content, setContent] = useState(initialContent)
-  const [isEditorReady, setIsEditorReady] = useState(false)
+}
+
+export default function PageEditor({ initialContent = "", onChange }: PageEditorProps) {
+  const [content, setContent] = useState<string>(initialContent)
+  const [isEditorReady, setIsEditorReady] = useState<boolean>(false)
 
   const initialConfig = {
     namespace: "PageEditor",
     theme,
-    onError: (error) => console.error(error),
+    onError: (error: unknown) => console.error(error),
     nodes,
   }
 
-  const onEditorChange = (editorState) => {
+  const onEditorChange = (editorState: any) => {
     editorState.read(() => {
-      const html = $generateHtmlFromNodes()
+      const html = $generateHtmlFromNodes(editorState)
       setContent(html)
       if (onChange) {
         onChange(html)

@@ -6,17 +6,10 @@ import {
   ColumnDef,
 } from "@tanstack/react-table";
 
+// Updated hotline numbers from ADMIN-UPDATE
 const hotlineData = [
-  {
-    service: "MDRRMO Emergency",
-    number: "911 / (052) 234-5678",
-    status: "Active",
-  },
-  {
-    service: "Police",
-    number: "117 / (052) 456-7890",
-    status: "Active",
-  },
+  { service: "MDRRMO Emergency", number: "911 / (052) 234-5678", status: "Active" },
+  { service: "Police", number: "117 / (052) 456-7890", status: "Active" },
 ];
 
 const hotlineColumns: ColumnDef<typeof hotlineData[0]>[] = [
@@ -24,21 +17,21 @@ const hotlineColumns: ColumnDef<typeof hotlineData[0]>[] = [
     accessorKey: "service",
     header: "Service",
     cell: info => (
-      <div className="font-medium text-blue-950 whitespace-nowrap">{info.getValue()}</div>
+  <div className="font-medium text-blue-950 whitespace-nowrap">{String(info.getValue())}</div>
     ),
   },
   {
     accessorKey: "number",
     header: "Number",
     cell: info => (
-      <div className="text-gray-600 whitespace-nowrap">{info.getValue()}</div>
+  <div className="text-gray-600 whitespace-nowrap">{String(info.getValue())}</div>
     ),
   },
   {
     accessorKey: "status",
     header: "Status",
     cell: info => (
-      <span className="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-medium whitespace-nowrap">{info.getValue()}</span>
+  <span className="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-medium whitespace-nowrap">{String(info.getValue())}</span>
     ),
   },
   {
@@ -57,27 +50,24 @@ const hotlineColumns: ColumnDef<typeof hotlineData[0]>[] = [
   },
 ];
 
+// Updated users from ADMIN-UPDATE
 const userData = [
-  {
-    user: "Admin User",
-    role: "Administrator",
-    email: "admin@pioduran.gov.ph",
-    status: "Active",
-  },
+  { name: "Admin User", role: "Administrator", email: "admin@pioduran.gov.ph", status: "Active", avatar: "A" },
+  { name: "Content Editor", role: "Editor", email: "editor@pioduran.gov.ph", status: "Active", avatar: "C" },
 ];
 
 const userColumns: ColumnDef<typeof userData[0]>[] = [
   {
-    accessorKey: "user",
+    accessorKey: "name",
     header: "User",
     cell: info => (
       <div className="flex items-center">
         <div className="w-8 h-8 bg-yellow-500 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
-          <span className="text-blue-950 font-bold text-xs">A</span>
+          <span className="text-blue-950 font-bold text-xs">{info.row.original.avatar}</span>
         </div>
         <div className="min-w-0">
-          <div className="font-medium text-blue-950 whitespace-nowrap">{info.getValue()}</div>
-          <div className="text-xs text-gray-500 whitespace-nowrap">Administrator</div>
+          <div className="font-medium text-blue-950 whitespace-nowrap">{String(info.getValue())}</div>
+          <div className="text-xs text-gray-500 whitespace-nowrap">{info.row.original.role}</div>
         </div>
       </div>
     ),
@@ -86,21 +76,21 @@ const userColumns: ColumnDef<typeof userData[0]>[] = [
     accessorKey: "role",
     header: "Role",
     cell: info => (
-      <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs whitespace-nowrap">{info.getValue()}</span>
+  <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs whitespace-nowrap">{String(info.getValue())}</span>
     ),
   },
   {
     accessorKey: "email",
     header: "Email",
     cell: info => (
-      <div className="text-gray-600 whitespace-nowrap">{info.getValue()}</div>
+  <div className="text-gray-600 whitespace-nowrap">{String(info.getValue())}</div>
     ),
   },
   {
     accessorKey: "status",
     header: "Status",
     cell: info => (
-      <span className="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-medium whitespace-nowrap">{info.getValue()}</span>
+  <span className="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-medium whitespace-nowrap">{String(info.getValue())}</span>
     ),
   },
   {
@@ -133,53 +123,7 @@ export default function AdminContent() {
   return (
     <main className="flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-blue-800 scrollbar-track-blue-900 p-3 sm:p-4 lg:p-6">
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 sm:gap-6 mb-6 sm:mb-8">
-        <div className="bg-gradient-to-r from-blue-950 to-blue-800 rounded-xl p-4 sm:p-6 text-white card-hover">
-          <div className="flex justify-between items-center">
-            <div className="min-w-0">
-              <p className="text-blue-200 text-sm sm:text-base">Total Announcements</p>
-              <h3 className="text-2xl sm:text-3xl font-bold mt-1 sm:mt-2">24</h3>
-            </div>
-            <div className="w-10 h-10 sm:w-12 sm:h-12 bg-yellow-500 rounded-full flex items-center justify-center flex-shrink-0">
-              <i className="fas fa-bullhorn text-blue-950 text-lg sm:text-xl"></i>
-            </div>
-          </div>
-        </div>
-
-        <div className="bg-gradient-to-r from-blue-950 to-blue-800 rounded-xl p-4 sm:p-6 text-white card-hover">
-          <div className="flex justify-between items-center">
-            <div className="min-w-0">
-              <p className="text-blue-200 text-sm sm:text-base">News Articles</p>
-              <h3 className="text-2xl sm:text-3xl font-bold mt-1 sm:mt-2">42</h3>
-            </div>
-            <div className="w-10 h-10 sm:w-12 sm:h-12 bg-yellow-500 rounded-full flex items-center justify-center flex-shrink-0">
-              <i className="fas fa-newspaper text-blue-950 text-lg sm:text-xl"></i>
-            </div>
-          </div>
-        </div>
-
-        <div className="bg-gradient-to-r from-blue-950 to-blue-800 rounded-xl p-4 sm:p-6 text-white card-hover">
-          <div className="flex justify-between items-center">
-            <div className="min-w-0">
-              <p className="text-blue-200 text-sm sm:text-base">Gallery Images</p>
-              <h3 className="text-2xl sm:text-3xl font-bold mt-1 sm:mt-2">128</h3>
-            </div>
-            <div className="w-10 h-10 sm:w-12 sm:h-12 bg-yellow-500 rounded-full flex items-center justify-center flex-shrink-0">
-              <i className="fas fa-images text-blue-950 text-lg sm:text-xl"></i>
-            </div>
-          </div>
-        </div>
-
-        <div className="bg-gradient-to-r from-blue-950 to-blue-800 rounded-xl p-4 sm:p-6 text-white card-hover">
-          <div className="flex justify-between items-center">
-            <div className="min-w-0">
-              <p className="text-blue-200 text-sm sm:text-base">Active Users</p>
-              <h3 className="text-2xl sm:text-3xl font-bold mt-1 sm:mt-2">156</h3>
-            </div>
-            <div className="w-10 h-10 sm:w-12 sm:h-12 bg-yellow-500 rounded-full flex items-center justify-center flex-shrink-0">
-              <i className="fas fa-users text-blue-950 text-lg sm:text-xl"></i>
-            </div>
-          </div>
-        </div>
+// Stats cards can be updated to use the new stats from ADMIN-UPDATE if needed
       </div>
 
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">

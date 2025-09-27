@@ -57,9 +57,31 @@ export default function AnnouncementManagement() {
   })
   const supabase = createClient()
 
-  const handleFormSubmit = async (e: React.FormEvent) => {
+  const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    // Form submission logic here
+
+    const announcementData = {
+      ...formData,
+      content: editorContent,
+    }
+
+    try {
+      if (editingId) {
+        const { error } = await supabase.from("announcements").update(announcementData).eq("id", editingId)
+        if (error) throw error
+        alert("Announcement updated successfully!")
+      } else {
+        const { error } = await supabase.from("announcements").insert([announcementData])
+        if (error) throw error
+        alert("Announcement created successfully!")
+      }
+
+      resetForm()
+      fetchAnnouncements()
+    } catch (error) {
+      console.error("Error saving announcement:", error)
+      alert("Error saving announcement. Please try again.")
+    }
   }
 
   useEffect(() => {
@@ -99,6 +121,10 @@ export default function AnnouncementManagement() {
     filtered.sort((a, b) => {
       const aValue = a[sortField]
       const bValue = b[sortField]
+
+      if (aValue === undefined && bValue === undefined) return 0
+      if (aValue === undefined) return 1
+      if (bValue === undefined) return -1
 
       if (sortDirection === "asc") {
         return aValue < bValue ? -1 : aValue > bValue ? 1 : 0

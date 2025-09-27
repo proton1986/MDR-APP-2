@@ -1,10 +1,42 @@
 "use client"
 
-import { useState } from "react"
+
+import { useState, useEffect } from "react"
+import { createClient } from "@/lib/supabase/client"
 
 export default function AnnouncementsPage() {
   const [searchTerm, setSearchTerm] = useState("")
   const [selectedCategory, setSelectedCategory] = useState("")
+  interface Announcement {
+    id: number
+    title: string
+    category: string
+    priority: string
+    content: string
+    image_url?: string
+    status: string
+    created_at: string
+  }
+  const [announcements, setAnnouncements] = useState<Announcement[]>([])
+  const [isLoading, setIsLoading] = useState(true)
+  const supabase = createClient()
+
+  useEffect(() => {
+    fetchAnnouncements()
+  }, [])
+
+  const fetchAnnouncements = async () => {
+    setIsLoading(true)
+    try {
+      const { data, error } = await supabase.from("announcements").select("*").order("created_at", { ascending: false })
+      if (error) throw error
+      setAnnouncements(data || [])
+    } catch (error) {
+      console.error("Error fetching announcements:", error)
+    } finally {
+      setIsLoading(false)
+    }
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -49,7 +81,7 @@ export default function AnnouncementsPage() {
       </header>
 
       {/* Main Content */}
-      <main className="container mx-auto px-4 py-12">
+  <main className="container mx-auto px-4 py-12">
         {/* Featured Announcement Banner */}
         <section className="mb-12">
           <div className="bg-gradient-to-r from-blue-950 to-blue-800 rounded-2xl shadow-xl overflow-hidden">
@@ -117,165 +149,82 @@ export default function AnnouncementsPage() {
 
             {/* Announcement Cards Grid */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              {/* Announcement 1 */}
-              <div className="bg-white rounded-2xl shadow-lg overflow-hidden border-l-4 border-red-500 hover:shadow-xl transition-shadow">
-                <div className="p-6">
-                  <div className="flex justify-between items-start mb-4">
-                    <div>
-                      <span className="bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm font-semibold mr-2">
-                        <i className="fas fa-exclamation-triangle mr-1"></i>Emergency
-                      </span>
-                      <span className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm font-semibold">
-                        High Priority
-                      </span>
-                    </div>
-                    <div className="text-gray-500 text-sm">Dec 15, 2024</div>
-                  </div>
-                  <h3 className="text-2xl font-bold text-blue-950 mb-4">
-                    Mandatory Evacuation Order for Low-Lying Areas
-                  </h3>
-                  <p className="text-gray-600 mb-6 leading-relaxed">
-                    Due to the approaching tropical storm, all residents in flood-prone areas are required to evacuate
-                    immediately to designated evacuation centers. Transportation will be provided.
-                  </p>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center">
-                      <div className="w-10 h-10 bg-blue-950 rounded-full flex items-center justify-center text-white font-bold mr-3">
-                        M
-                      </div>
-                      <div>
-                        <p className="font-semibold text-blue-950">MDRRMO Office</p>
-                        <p className="text-sm text-gray-500">Official Announcement</p>
-                      </div>
-                    </div>
-                    <button className="bg-blue-950 text-white px-6 py-2 rounded-lg hover:bg-blue-800 transition-colors">
-                      Read More
-                    </button>
-                  </div>
+              {isLoading ? (
+                <div className="col-span-2 text-center py-12">
+                  <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
+                  <p className="text-muted-foreground">Loading announcements...</p>
                 </div>
-              </div>
-
-              {/* Announcement 2 */}
-              <div className="bg-white rounded-2xl shadow-lg overflow-hidden border-l-4 border-yellow-500 hover:shadow-xl transition-shadow">
-                <div className="relative">
-                  <div className="h-48 bg-gradient-to-r from-yellow-500 to-yellow-400 flex items-center justify-center">
-                    <i className="fas fa-calendar-alt text-blue-950 text-6xl"></i>
-                  </div>
-                  <div className="absolute top-4 right-4">
-                    <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-semibold">
-                      <i className="fas fa-calendar mr-1"></i>Event
-                    </span>
-                  </div>
+              ) : announcements.length === 0 ? (
+                <div className="col-span-2 text-center py-12">
+                  <p className="text-muted-foreground">No announcements found.</p>
                 </div>
-                <div className="p-6">
-                  <div className="flex justify-between items-start mb-4">
-                    <div>
-                      <span className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm font-semibold">
-                        Medium Priority
-                      </span>
-                    </div>
-                    <div className="text-gray-500 text-sm">Dec 12, 2024</div>
-                  </div>
-                  <h3 className="text-2xl font-bold text-blue-950 mb-4">Annual Community Christmas Festival</h3>
-                  <p className="text-gray-600 mb-6 leading-relaxed">
-                    Join us for our annual Christmas Festival featuring local vendors, food stalls, and entertainment.
-                    The event will be held at the Municipal Plaza on December 20th from 3 PM onwards.
-                  </p>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center">
-                      <div className="w-10 h-10 bg-yellow-500 rounded-full flex items-center justify-center text-blue-950 font-bold mr-3">
-                        T
-                      </div>
-                      <div>
-                        <p className="font-semibold text-blue-950">Tourism Office</p>
-                        <p className="text-sm text-gray-500">Community Event</p>
-                      </div>
-                    </div>
-                    <button className="bg-blue-950 text-white px-6 py-2 rounded-lg hover:bg-blue-800 transition-colors">
-                      Read More
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              {/* Announcement 3 */}
-              <div className="bg-white rounded-2xl shadow-lg overflow-hidden border-l-4 border-yellow-500 hover:shadow-xl transition-shadow">
-                <div className="p-6">
-                  <div className="flex justify-between items-start mb-4">
-                    <div>
-                      <span className="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm font-semibold mr-2">
-                        <i className="fas fa-info-circle mr-1"></i>Notice
-                      </span>
-                      <span className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm font-semibold">
-                        Medium Priority
-                      </span>
-                    </div>
-                    <div className="text-gray-500 text-sm">Dec 10, 2024</div>
-                  </div>
-                  <h3 className="text-2xl font-bold text-blue-950 mb-4">New Waste Collection Schedule</h3>
-                  <p className="text-gray-600 mb-6 leading-relaxed">
-                    Starting January 2025, our waste collection schedule will be adjusted to better serve all barangays.
-                    Please check the new schedule posted at your local barangay office.
-                  </p>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center">
-                      <div className="w-10 h-10 bg-blue-950 rounded-full flex items-center justify-center text-white font-bold mr-3">
-                        S
-                      </div>
-                      <div>
-                        <p className="font-semibold text-blue-950">Sanitation Management Office</p>
-                        <p className="text-sm text-gray-500">Administrative Notice</p>
-                      </div>
-                    </div>
-                    <button className="bg-blue-950 text-white px-6 py-2 rounded-lg hover:bg-blue-800 transition-colors">
-                      Read More
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              {/* Announcement 4 */}
-              <div className="bg-white rounded-2xl shadow-lg overflow-hidden border-l-4 border-green-500 hover:shadow-xl transition-shadow">
-                <div className="p-6">
-                  <div className="aspect-video bg-gray-200 rounded-lg mb-6 flex items-center justify-center">
-                    <div className="text-center">
-                      <i className="fas fa-play-circle text-blue-950 text-4xl mb-2"></i>
-                      <p className="text-gray-600">Mayor's Monthly Address</p>
-                    </div>
-                  </div>
-                  <div className="flex justify-between items-start mb-4">
-                    <div>
-                      <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-semibold mr-2">
-                        <i className="fas fa-video mr-1"></i>Video
-                      </span>
-                      <span className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm font-semibold">
-                        Low Priority
-                      </span>
-                    </div>
-                    <div className="text-gray-500 text-sm">Dec 8, 2024</div>
-                  </div>
-                  <h3 className="text-2xl font-bold text-blue-950 mb-4">Mayor's Monthly Address</h3>
-                  <p className="text-gray-600 mb-6 leading-relaxed">
-                    Watch the Mayor's latest monthly address discussing recent developments, upcoming projects, and
-                    community initiatives for the coming months.
-                  </p>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center">
-                      <div className="w-10 h-10 bg-yellow-500 rounded-full flex items-center justify-center text-blue-950 font-bold mr-3">
-                        M
-                      </div>
-                      <div>
-                        <p className="font-semibold text-blue-950">Mayor's Office</p>
-                        <p className="text-sm text-gray-500">Official Video</p>
+              ) : (
+                announcements
+                  .filter((a) => {
+                    const matchesSearch =
+                      a.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                      a.content.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                      a.category.toLowerCase().includes(searchTerm.toLowerCase())
+                    const matchesCategory = !selectedCategory || a.category === selectedCategory
+                    return matchesSearch && matchesCategory
+                  })
+                  .map((a) => (
+                    <div
+                      key={a.id}
+                      className={`bg-white rounded-2xl shadow-lg overflow-hidden border-l-4 hover:shadow-xl transition-shadow ${
+                        a.category === "emergency"
+                          ? "border-red-500"
+                          : a.category === "event"
+                          ? "border-yellow-500"
+                          : a.category === "notice"
+                          ? "border-blue-500"
+                          : "border-gray-300"
+                      }`}
+                    >
+                      <div className="p-6">
+                        <div className="flex justify-between items-start mb-4">
+                          <div>
+                            <span className={`px-3 py-1 rounded-full text-sm font-semibold mr-2 ${
+                              a.category === "emergency"
+                                ? "bg-red-100 text-red-800"
+                                : a.category === "event"
+                                ? "bg-yellow-100 text-yellow-800"
+                                : a.category === "notice"
+                                ? "bg-blue-100 text-blue-800"
+                                : "bg-gray-100 text-gray-700"
+                            }`}>
+                              {a.category.charAt(0).toUpperCase() + a.category.slice(1)}
+                            </span>
+                            <span className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm font-semibold">
+                              {a.priority ? `${a.priority.charAt(0).toUpperCase() + a.priority.slice(1)} Priority` : ""}
+                            </span>
+                          </div>
+                          <div className="text-gray-500 text-sm">
+                            {new Date(a.created_at).toLocaleDateString()}
+                          </div>
+                        </div>
+                        <h3 className="text-2xl font-bold text-blue-950 mb-4">{a.title}</h3>
+                        <p className="text-gray-600 mb-6 leading-relaxed">
+                          {a.content.replace(/<[^>]*>/g, "").substring(0, 200)}{a.content.length > 200 ? "..." : ""}
+                        </p>
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center">
+                            <div className="w-10 h-10 bg-blue-950 rounded-full flex items-center justify-center text-white font-bold mr-3">
+                              {a.title.charAt(0)}
+                            </div>
+                            <div>
+                              <p className="font-semibold text-blue-950">MDRRMO Office</p>
+                              <p className="text-sm text-gray-500">Official Announcement</p>
+                            </div>
+                          </div>
+                          {/* Optionally add a Read More button or modal */}
+                        </div>
                       </div>
                     </div>
-                    <button className="bg-blue-950 text-white px-6 py-2 rounded-lg hover:bg-blue-800 transition-colors">
-                      Watch Video
-                    </button>
-                  </div>
-                </div>
-              </div>
+                  ))
+              )}
             </div>
+            {/* End dynamic announcement cards grid */}
           </div>
         </section>
 

@@ -22,7 +22,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`${poppins.variable} scroll-smooth`}>
+  <html lang="en" className={`${poppins.variable} scroll-smooth`} data-scroll-behavior="smooth">
       <body className="bg-gray-100 font-sans">
         <ConditionalLayout>{children}</ConditionalLayout>
       </body>

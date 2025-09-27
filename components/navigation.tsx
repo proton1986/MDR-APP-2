@@ -63,7 +63,7 @@ export default function Navigation() {
           {/* Logo/Brand */}
           <div className="flex-shrink-0 flex items-center space-x-3">
             <Image
-              src="/images/design-mode/logome_h9snnx%281%29%281%29%281%29%281%29%281%29%281%29%281%29%281%29%281%29.webp"
+              src="/images/design-mode/logome_h9snnx%281%29%281%29%281%29.webp" onError={e => e.currentTarget.src = '/images/design-mode/logome_h9snnx%281%29%281%29%281%29.webp'}
               alt="MDRRMO Pio Duran Official Logo"
               width={48}
               height={48}
