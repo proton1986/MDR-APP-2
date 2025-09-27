@@ -138,29 +138,31 @@ export default function AdminSidebar({ isOpen, onClose, activeSection, onSection
             </button>
           ))}
 
-          <div className="px-4 sm:px-6 py-3 text-blue-300 text-xs uppercase font-semibold tracking-wider mt-6">
-            Admin
-          </div>
-          {menuItems.slice(20, 21).map((item) => (
-            <button
-              key={item.id}
-              onClick={() => {
-                onSectionChange(item.id)
-                if (window.innerWidth < 1024) {
-                  onClose()
-                }
-              }}
-              className={`w-full flex items-center px-4 sm:px-6 py-3 sm:py-4 text-left transition-all duration-200 border-l-4 hover:bg-blue-800/50 focus:bg-blue-800/50 focus:outline-none focus:ring-2 focus:ring-yellow-500/50 ${
-                activeSection === item.id
-                  ? "bg-blue-800 border-yellow-500 text-white shadow-lg"
-                  : "border-transparent text-blue-200 hover:border-yellow-500/50"
-              }`}
-              aria-current={activeSection === item.id ? "page" : undefined}
-            >
-              <i className={`${item.icon} mr-3 sm:mr-4 text-base sm:text-lg flex-shrink-0`}></i>
-              <span className="text-sm sm:text-base font-medium truncate">{item.label}</span>
-            </button>
-          ))}
+          <>
+            <div className="px-4 sm:px-6 py-3 text-blue-300 text-xs uppercase font-semibold tracking-wider mt-6">
+              Admin
+            </div>
+            {menuItems.slice(20, 21).map((item) => (
+              <button
+                key={item.id}
+                onClick={() => {
+                  onSectionChange(item.id)
+                  if (window.innerWidth < 1024) {
+                    onClose()
+                  }
+                }}
+                className={`w-full flex items-center px-4 sm:px-6 py-3 sm:py-4 text-left transition-all duration-200 border-l-4 hover:bg-blue-800/50 focus:bg-blue-800/50 focus:outline-none focus:ring-2 focus:ring-yellow-500/50 ${
+                  activeSection === item.id
+                    ? "bg-blue-800 border-yellow-500 text-white shadow-lg"
+                    : "border-transparent text-blue-200 hover:border-yellow-500/50"
+                }`}
+                aria-current={activeSection === item.id ? "page" : undefined}
+              >
+                <i className={`${item.icon} mr-3 sm:mr-4 text-base sm:text-lg flex-shrink-0`}></i>
+                <span className="text-sm sm:text-base font-medium truncate">{item.label}</span>
+              </button>
+            ))}
+          </>
 
           <div className="h-6"></div>
         </nav>

@@ -226,6 +226,7 @@ export default function AdminDashboard() {
                 src="https://res.cloudinary.com/dedcmctqk/image/upload/v1750079276/logome_h9snnx.webp" 
                 alt="MDRRMO Logo" 
                 className="w-full h-full object-contain"
+                onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/placeholder-logo.png'; }}
               />
             </div>
             <div>
