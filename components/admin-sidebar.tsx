@@ -54,7 +54,7 @@ export default function AdminSidebar({ isOpen, onClose, activeSection, onSection
         } lg:translate-x-0 lg:static lg:z-auto`}
         aria-label="Admin Navigation"
       >
-        <div className="sticky top-0 z-10 bg-blue-950 p-4 sm:p-6 border-b border-blue-800">
+  <div className="sticky top-0 z-10 bg-blue-950 p-3 sm:p-4 border-b border-blue-800">
           <div className="flex items-center">
             <div className="w-10 h-10 sm:w-12 sm:h-12 bg-yellow-500 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
               <i className="fas fa-shield-alt text-blue-950 text-lg sm:text-xl"></i>
@@ -66,8 +66,8 @@ export default function AdminSidebar({ isOpen, onClose, activeSection, onSection
           </div>
         </div>
 
-        <nav className="flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-blue-800 scrollbar-track-blue-900 pb-6">
-          <div className="px-1 sm:px-6 py-3 text-blue-300 text-xs uppercase font-semibold tracking-wider">Main</div>
+        <nav className="flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-blue-800 scrollbar-track-blue-900 pb-3">
+          <div className="px-2 sm:px-4 py-2 text-blue-300 text-xs uppercase font-semibold tracking-wider">Main</div>
           {menuItems.slice(0, 2).map((item) => (
             <button
               key={item.id}
@@ -78,7 +78,7 @@ export default function AdminSidebar({ isOpen, onClose, activeSection, onSection
                   onClose()
                 }
               }}
-              className={`w-full flex items-center px-4 sm:px-6 py-3 sm:py-4 text-left transition-all duration-200 border-l-4 hover:bg-blue-800/50 focus:bg-blue-800/50 focus:outline-none focus:ring-2 focus:ring-yellow-500/50 ${
+              className={`w-full flex items-center px-3 sm:px-4 py-2 sm:py-2 text-left transition-all duration-200 border-l-4 hover:bg-blue-800/50 focus:bg-blue-800/50 focus:outline-none focus:ring-2 focus:ring-yellow-500/50 ${
                 activeSection === item.id
                   ? "bg-blue-800 border-yellow-500 text-white shadow-lg"
                   : "border-transparent text-blue-200 hover:border-yellow-500/50"
@@ -90,7 +90,7 @@ export default function AdminSidebar({ isOpen, onClose, activeSection, onSection
             </button>
           ))}
 
-          <div className="px-4 sm:px-6 py-3 text-blue-300 text-xs uppercase font-semibold tracking-wider mt-6">
+          <div className="px-2 sm:px-4 py-2 text-blue-300 text-xs uppercase font-semibold tracking-wider mt-4">
             Content Management
           </div>
           {menuItems.slice(2, 9).map((item) => (
@@ -102,7 +102,7 @@ export default function AdminSidebar({ isOpen, onClose, activeSection, onSection
                   onClose()
                 }
               }}
-              className={`w-full flex items-center px-4 sm:px-6 py-3 sm:py-4 text-left transition-all duration-200 border-l-4 hover:bg-blue-800/50 focus:bg-blue-800/50 focus:outline-none focus:ring-2 focus:ring-yellow-500/50 ${
+              className={`w-full flex items-center px-3 sm:px-4 py-2 sm:py-2 text-left transition-all duration-200 border-l-4 hover:bg-blue-800/50 focus:bg-blue-800/50 focus:outline-none focus:ring-2 focus:ring-yellow-500/50 ${
                 activeSection === item.id
                   ? "bg-blue-800 border-yellow-500 text-white shadow-lg"
                   : "border-transparent text-blue-200 hover:border-yellow-500/50"
@@ -114,7 +114,7 @@ export default function AdminSidebar({ isOpen, onClose, activeSection, onSection
             </button>
           ))}
 
-          <div className="px-4 sm:px-6 py-3 text-blue-300 text-xs uppercase font-semibold tracking-wider mt-6">
+          <div className="px-2 sm:px-4 py-2 text-blue-300 text-xs uppercase font-semibold tracking-wider mt-4">
             System
           </div>
           {menuItems.slice(9, 20).map((item) => (
@@ -126,7 +126,7 @@ export default function AdminSidebar({ isOpen, onClose, activeSection, onSection
                   onClose()
                 }
               }}
-              className={`w-full flex items-center px-4 sm:px-6 py-3 sm:py-4 text-left transition-all duration-200 border-l-4 hover:bg-blue-800/50 focus:bg-blue-800/50 focus:outline-none focus:ring-2 focus:ring-yellow-500/50 ${
+              className={`w-full flex items-center px-3 sm:px-4 py-2 sm:py-2 text-left transition-all duration-200 border-l-4 hover:bg-blue-800/50 focus:bg-blue-800/50 focus:outline-none focus:ring-2 focus:ring-yellow-500/50 ${
                 activeSection === item.id
                   ? "bg-blue-800 border-yellow-500 text-white shadow-lg"
                   : "border-transparent text-blue-200 hover:border-yellow-500/50"
@@ -138,7 +138,7 @@ export default function AdminSidebar({ isOpen, onClose, activeSection, onSection
             </button>
           ))}
 
-          <div className="px-4 sm:px-6 py-3 text-blue-300 text-xs uppercase font-semibold tracking-wider mt-6">
+          <div className="px-2 sm:px-4 py-2 text-blue-300 text-xs uppercase font-semibold tracking-wider mt-4">
             Admin
           </div>
           {menuItems.slice(20, 21).map((item) => (
@@ -150,7 +150,7 @@ export default function AdminSidebar({ isOpen, onClose, activeSection, onSection
                   onClose()
                 }
               }}
-              className={`w-full flex items-center px-4 sm:px-6 py-3 sm:py-4 text-left transition-all duration-200 border-l-4 hover:bg-blue-800/50 focus:bg-blue-800/50 focus:outline-none focus:ring-2 focus:ring-yellow-500/50 ${
+              className={`w-full flex items-center px-3 sm:px-4 py-2 sm:py-2 text-left transition-all duration-200 border-l-4 hover:bg-blue-800/50 focus:bg-blue-800/50 focus:outline-none focus:ring-2 focus:ring-yellow-500/50 ${
                 activeSection === item.id
                   ? "bg-blue-800 border-yellow-500 text-white shadow-lg"
                   : "border-transparent text-blue-200 hover:border-yellow-500/50"

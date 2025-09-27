@@ -17,15 +17,28 @@ function AdminDashboard() {
 
   return (
     <div className="flex h-screen bg-blue-50">
-      <AdminSidebar
-        isOpen={sidebarOpen}
-        onClose={() => setSidebarOpen(false)}
-        activeSection={activeSection}
-        onSectionChange={setActiveSection}
-      />
+      {/* Sidebar: independent scroll */}
+      <div className="h-full w-72 sm:w-80 lg:w-64 flex-shrink-0">
+        <div className="h-full overflow-y-auto">
+          <AdminSidebar
+            isOpen={sidebarOpen}
+            onClose={() => setSidebarOpen(false)}
+            activeSection={activeSection}
+            onSectionChange={setActiveSection}
+          />
+        </div>
+      </div>
+      {/* Main content and sticky footer */}
       <div className="flex flex-col flex-1 min-w-0">
         <AdminHeader onMenuToggle={() => setSidebarOpen((open) => !open)} onLogout={handleLogout} />
-        <AdminContent activeSection={activeSection} />
+        <div className="flex-1 overflow-y-auto">
+          <AdminContent activeSection={activeSection} />
+        </div>
+        <footer className="sticky bottom-0 w-full bg-blue-950 text-white border-t-4 border-yellow-500 shadow-lg z-50">
+          <div className="text-center py-3">
+            &copy; {new Date().getFullYear()} MDRRMO Pio Duran Admin Panel. All rights reserved.
+          </div>
+        </footer>
       </div>
     </div>
   )

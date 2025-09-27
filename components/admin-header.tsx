@@ -21,6 +21,14 @@ export default function AdminHeader({ onMenuToggle, onLogout }: AdminHeaderProps
         </div>
 
         <div className="flex items-center space-x-2 sm:space-x-4">
+          <a
+            href="/"
+            className="text-blue-950 hover:text-green-600 transition-colors p-2 hover:bg-green-50 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500/20"
+            title="View Homepage"
+            aria-label="View Homepage"
+          >
+            <i className="fas fa-home text-base sm:text-lg"></i>
+          </a>
           <div className="relative">
             <button
               className="text-blue-950 hover:text-blue-700 transition-colors p-2 hover:bg-blue-50 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-950/20"
