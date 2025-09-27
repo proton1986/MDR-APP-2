@@ -223,10 +223,9 @@ export default function AdminDashboard() {
           <div className="flex items-center">
             <div className="w-10 h-10 bg-yellow-500 rounded-full flex items-center justify-center mr-3 border-2 border-blue-950 overflow-hidden">
               <img 
-                src="https://res.cloudinary.com/dedcmctqk/image/upload/v1750079276/logome_h9snnx.webp" 
+                src="/images/design-mode/logome_h9snnx.webp" 
                 alt="MDRRMO Logo" 
                 className="w-full h-full object-contain"
-                onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/placeholder-logo.png'; }}
               />
             </div>
             <div>
