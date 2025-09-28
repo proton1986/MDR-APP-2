@@ -1,11 +1,11 @@
 import type { Metadata } from "next"
-import AdminDashboard from "@/components/admin-dashboard"
+import EnhancedDashboard from "@/components/admin/enhanced-dashboard"
 
 export const metadata: Metadata = {
-  title: "MDRRMO Admin Panel",
-  description: "Admin dashboard for MDRRMO Pio Duran",
+  title: "Enhanced MDRRMO Admin Panel",
+  description: "Comprehensive admin dashboard for MDRRMO Pio Duran",
 }
 
 export default function AdminPage() {
-  return <AdminDashboard />
+  return <EnhancedDashboard />
 }
