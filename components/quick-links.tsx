@@ -55,7 +55,7 @@ const QuickLinks = () => {
   ];
 
   return (
-    <div className="w-full bg-white shadow-xl overflow-hidden rounded-lg border-x-4 border-y-4 border-blue-950 border-b-yellow-500" style={{ fontFamily: 'Poppins, sans-serif' }}>
+    <div className="w-full bg-white shadow-xl overflow-hidden border-x-4 border-y-4 border-t-blue-950 border-b-yellow-500" style={{ fontFamily: 'Poppins, sans-serif' }}>
       <div className="py-6">
         <div className="grid grid-cols-4 sm:grid-cols-7 gap-2 md:gap-4 w-full">
           {quickLinks.map((link) => {
