@@ -29,10 +29,10 @@ export default function HistoryPage() {
               <p className="text-xl mb-6">Discover the rich heritage and evolution of our beloved municipality</p>
               <div className="flex items-center space-x-4">
                 <div className="bg-yellow-500 text-blue-950 px-4 py-2 rounded-full font-semibold">
-                  <i className="fas fa-map-marker-alt mr-2"></i>Albay Province
+                  <i className="fas fa-map-marker-alt mr-2"></i>Region V (Bicol)
                 </div>
                 <div className="bg-blue-800 px-4 py-2 rounded-full font-semibold">
-                  <i className="fas fa-calendar-alt mr-2"></i>Founded 1963
+                  <i className="fas fa-calendar-alt mr-2"></i>Province of Albay
                 </div>
               </div>
             </div>
@@ -42,7 +42,7 @@ export default function HistoryPage() {
                 <div className="w-64 h-64 md:w-80 md:h-80 bg-blue-950 rounded-full opacity-20 absolute -bottom-6 -right-6"></div>
                 <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-8 border-yellow-500 floating-animation">
                   <Image
-                    src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=800&h=800&fit=crop"
+                    src="https://res.cloudinary.com/dedcmctqk/image/upload/v1749401540/PIODURAN_SEAL_wecj1g.png?w=800&h=800&fit=crop"
                     alt="Pio Duran Landscape"
                     width={320}
                     height={320}
@@ -168,12 +168,8 @@ export default function HistoryPage() {
 
               <div className="flex justify-center">
                 <div className="relative w-full max-w-md">
-                  <div className="bg-gray-200 border-2 border-dashed rounded-xl w-full h-80 flex items-center justify-center">
-                    <div className="text-center">
-                      <i className="fas fa-map-marked-alt text-5xl text-blue-950 mb-4"></i>
-                      <p className="text-blue-950 font-semibold">Interactive Map of Pio Duran</p>
-                      <p className="text-gray-600 text-sm mt-2">Geographical visualization coming soon</p>
-                    </div>
+                  <div className="bg-blue-950 border-4 border-dashed rounded-xl w-full h-100 flex items-center justify-center">
+                    <iframe src="https://www.google.com/maps/d/embed?mid=1MDss6WCD4sr53Z3HyKl8QPfN5aKdPsk&ehbc=2E312F&noprof=1" width="500" height="400"></iframe>
                   </div>
                   <div className="absolute -bottom-4 -right-4 bg-yellow-500 text-blue-950 px-4 py-2 rounded-lg font-bold">
                     <i className="fas fa-location-arrow mr-2"></i>Albay Province

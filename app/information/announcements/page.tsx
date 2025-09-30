@@ -83,41 +83,7 @@ export default function AnnouncementsPage() {
       {/* Main Content */}
   <main className="container mx-auto px-4 py-12">
         {/* Featured Announcement Banner */}
-        <section className="mb-12">
-          <div className="bg-gradient-to-r from-blue-950 to-blue-800 rounded-2xl shadow-xl overflow-hidden">
-            <div className="p-8 md:p-12">
-              <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-6">
-                <div className="flex items-center mb-4 md:mb-0">
-                  <span className="bg-yellow-500 text-blue-950 px-4 py-2 rounded-full font-bold text-sm mr-4">
-                    FEATURED
-                  </span>
-                  <span className="bg-red-500 text-white px-4 py-2 rounded-full font-bold text-sm">
-                    <i className="fas fa-exclamation-triangle mr-2"></i>URGENT
-                  </span>
-                </div>
-                <div className="text-white text-sm">
-                  <i className="fas fa-clock mr-2"></i>Posted: December 15, 2024 • 2:30 PM
-                </div>
-              </div>
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
-                Emergency Weather Advisory - Tropical Storm Juanito
-              </h2>
-              <p className="text-xl text-blue-100 mb-8 leading-relaxed">
-                Residents are advised to take necessary precautions as Tropical Storm Juanito approaches our region.
-                Evacuation centers are now open and ready to accommodate affected families.
-              </p>
-              <div className="flex flex-wrap gap-4">
-                <button className="bg-yellow-500 text-blue-950 px-8 py-3 rounded-full font-bold hover:bg-yellow-400 transition-colors">
-                  <i className="fas fa-map-marker-alt mr-2"></i>Evacuation Centers
-                </button>
-                <button className="bg-white text-blue-950 px-8 py-3 rounded-full font-bold hover:bg-gray-100 transition-colors">
-                  <i className="fas fa-info-circle mr-2"></i>More Information
-                </button>
-              </div>
-            </div>
-          </div>
-        </section>
-
+       
         {/* Filter and Search Section */}
         <section className="mb-12">
           <div className="bg-white rounded-2xl shadow-xl p-8">
