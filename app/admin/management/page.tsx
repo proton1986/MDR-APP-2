@@ -1,11 +1,11 @@
 import type { Metadata } from "next"
-import EnhancedManagementDashboard from "@/components/admin/enhanced-management-dashboard"
+import ManagementDashboard from "@/components/admin/management-dashboard"
 
 export const metadata: Metadata = {
-  title: "Enhanced Management Dashboard - MDRRMO Admin",
-  description: "Comprehensive content and data management dashboard for MDRRMO",
+  title: "Management Dashboard - MDRRMO Admin",
+  description: "Content and data management dashboard for MDRRMO",
 }
 
 export default function ManagementPage() {
-  return <EnhancedManagementDashboard />
+  return <ManagementDashboard />
 }
