@@ -1,18 +1,38 @@
-"use client"
+"use client";
 
 import { useState, useEffect } from 'react';
 
-// Handle incident form submission
-const handleIncidentSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-  e.preventDefault();
-  // TODO: Add incident submission logic here
-  alert('Incident report submitted!');
-  closeModals();
+type Alert = {
+  sender_name: string;
+  event: string;
+  start: number;
+  end: number;
+  description: string;
 };
 
 export default function HeroSection() {
   const [currentTime, setCurrentTime] = useState<Date | null>(null);
   const [backgroundImage, setBackgroundImage] = useState('');
+  const [currentWeather, setCurrentWeather] = useState<any>(null);
+  const [weatherAlert, setWeatherAlert] = useState<Alert | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  // Close all modals
+  const closeModals = () => {
+    const hotlineModal = document.getElementById('hotline-modal');
+    const incidentModal = document.getElementById('incident-modal');
+    const successModal = document.getElementById('success-modal');
+    if (hotlineModal) hotlineModal.classList.add('hidden');
+    if (incidentModal) incidentModal.classList.add('hidden');
+    if (successModal) successModal.classList.add('hidden');
+  };
+
+  // Handle incident form submission
+  const handleIncidentSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    alert('Incident report submitted!');
+    closeModals();
+  };
 
   // Update time every second
   useEffect(() => {
@@ -31,14 +51,9 @@ export default function HeroSection() {
     if (hour >= 5 && hour < 7) {
       image = '/images/sunrise.webp';
     } else if (hour >= 7 && hour < 17) {
-      // Check if noontime image exists
       fetch('/images/noontime.webp', { method: 'HEAD' })
-        .then(res => {
-          if (res.ok) {
-            setBackgroundImage('/images/noontime.webp');
-          } else {
-            setBackgroundImage('/images/sunrise.webp');
-          }
+        .then((res) => {
+          setBackgroundImage(res.ok ? '/images/noontime.webp' : '/images/sunrise.webp');
         })
         .catch(() => setBackgroundImage('/images/sunrise.webp'));
       return;
@@ -50,7 +65,56 @@ export default function HeroSection() {
     setBackgroundImage(image);
   }, [currentTime]);
 
-  // Format time for display
+  // Fetch weather data with alerts
+  useEffect(() => {
+    const fetchWeather = async () => {
+      try {
+        const lat = 13.0307;
+        const lon = 123.4422;
+        const apiKey = process.env.NEXT_PUBLIC_OPENWEATHER_API_KEY;
+        if (!apiKey) {
+          setError('API key missing');
+          return;
+        }
+
+        const response = await fetch(
+          `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&exclude=minutely,hourly,daily&appid=${apiKey}&units=metric`
+        );
+
+        if (!response.ok) {
+          throw new Error('Failed to fetch weather');
+        }
+
+        const data = await response.json();
+
+        setCurrentWeather({
+          temp: Math.round(data.current.temp),
+          description: data.current.weather[0].description,
+          icon: data.current.weather[0].icon,
+          date: new Date(data.current.dt * 1000).toLocaleDateString('en-US', {
+            weekday: 'short',
+            month: 'short',
+            day: 'numeric',
+          }),
+        });
+
+        if (data.alerts?.length > 0) {
+          setWeatherAlert(data.alerts[0]);
+        } else {
+          setWeatherAlert(null);
+        }
+        setError(null);
+      } catch (err) {
+        setError('Weather unavailable');
+        setWeatherAlert(null);
+        console.error(err);
+      }
+    };
+
+    fetchWeather();
+  }, []);
+
+  // Format time and date
   const formatTime = (date: Date) => {
     return date.toLocaleTimeString('en-US', {
       timeZone: 'Asia/Manila',
@@ -70,89 +134,58 @@ export default function HeroSection() {
       day: 'numeric',
     });
   };
-  const closeModals = () => {
-    const hotlineModal = document.getElementById('hotline-modal');
-    if (hotlineModal) {
-      hotlineModal.classList.add('hidden');
-    }
-    const incidentModal = document.getElementById('incident-modal');
-    if (incidentModal) {
-      incidentModal.classList.add('hidden');
-    }
-    const successModal = document.getElementById('success-modal');
-    if (successModal) {
-      successModal.classList.add('hidden');
-    }
-  };
 
-  // Preview image
+  // Image preview logic
   const previewImage = (input: HTMLInputElement) => {
     if (input.files && input.files[0]) {
-      const file: File = input.files[0];
+      const file = input.files[0];
       const maxSize = 5 * 1024 * 1024; // 5MB
-      
       if (file.size > maxSize) {
-        document.getElementById('upload-error')!.classList.remove('hidden');
+        document.getElementById('upload-error')?.classList.remove('hidden');
         document.getElementById('error-message')!.textContent = 'File size exceeds 5MB limit';
         return;
       }
-      
       const reader = new FileReader();
-      reader.onload = function(e: ProgressEvent<FileReader>) {
-        (document.getElementById('preview') as HTMLImageElement)!.src = e.target!.result as string;
+      reader.onload = (e) => {
+        const preview = document.getElementById('preview') as HTMLImageElement;
+        if (preview) preview.src = e.target?.result as string;
         document.getElementById('file-name')!.textContent = file.name;
         document.getElementById('file-size')!.textContent = (file.size / 1024).toFixed(1) + ' KB';
-        document.getElementById('image-preview')!.classList.remove('hidden');
-        document.getElementById('upload-error')!.classList.add('hidden');
-      }
+        document.getElementById('image-preview')?.classList.remove('hidden');
+        document.getElementById('upload-error')?.classList.add('hidden');
+      };
       reader.readAsDataURL(file);
     }
   };
 
-  // Remove image
   const removeImage = () => {
     (document.getElementById('file-upload') as HTMLInputElement).value = '';
-    const imagePreview = document.getElementById('image-preview');
-    if (imagePreview) {
-      imagePreview.classList.add('hidden');
-    }
+    document.getElementById('image-preview')?.classList.add('hidden');
   };
 
-  // Get location
   const getLocation = () => {
-    const locationBtn = document.getElementById('location-btn');
-    if (!locationBtn) return;
-    locationBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-1"></i> Getting location...';
-    
+    const btn = document.getElementById('location-btn');
+    if (!btn) return;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-1"></i> Getting location...';
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
-        (position) => {
-          if (locationBtn) {
-            locationBtn.innerHTML = '<i class="fas fa-check mr-1"></i> Location acquired';
-            setTimeout(() => {
-              if (locationBtn) {
-                locationBtn.innerHTML = '<i class="fas fa-location-arrow mr-1"></i> Use My Current Location';
-              }
-            }, 2000);
-          }
+        () => {
+          btn.innerHTML = '<i class="fas fa-check mr-1"></i> Location acquired';
+          setTimeout(() => {
+            btn.innerHTML = '<i class="fas fa-location-arrow mr-1"></i> Use My Current Location';
+          }, 2000);
         },
-        (error) => {
-          if (locationBtn) {
-            locationBtn.innerHTML = '<i class="fas fa-exclamation mr-1"></i> Location failed';
-            setTimeout(() => {
-              if (locationBtn) {
-                locationBtn.innerHTML = '<i class="fas fa-location-arrow mr-1"></i> Use My Current Location';
-              }
-            }, 2000);
-          }
+        () => {
+          btn.innerHTML = '<i class="fas fa-exclamation mr-1"></i> Location failed';
+          setTimeout(() => {
+            btn.innerHTML = '<i class="fas fa-location-arrow mr-1"></i> Use My Current Location';
+          }, 2000);
         }
       );
     } else {
-      locationBtn.innerHTML = '<i class="fas fa-exclamation mr-1"></i> Not supported';
+      btn.innerHTML = '<i class="fas fa-exclamation mr-1"></i> Not supported';
       setTimeout(() => {
-        if (locationBtn) {
-          locationBtn.innerHTML = '<i class="fas fa-location-arrow mr-1"></i> Use My Current Location';
-        }
+        btn.innerHTML = '<i class="fas fa-location-arrow mr-1"></i> Use My Current Location';
       }, 2000);
     }
   };
@@ -162,15 +195,14 @@ export default function HeroSection() {
       className="relative flex items-center justify-center bg-gradient-to-b from-yellow-900 to-blue-100 overflow-hidden min-h-screen"
       id="hero"
     >
-      {/* Dynamic Background Image */}
-      <div 
+      {/* Dynamic Background */}
+      <div
         className="absolute inset-0 bg-cover bg-center opacity-100 transition-opacity duration-1000"
         style={{ backgroundImage: `url('${backgroundImage}')` }}
       ></div>
-      
       <div className="absolute inset-0 bg-gradient-to-b from-blue-900/30 to-blue-800/30"></div>
-      
-      {/* Time Card - Top Right Corner */}
+
+      {/* Time Card */}
       {currentTime && (
         <div className="absolute top-6 right-6 z-20">
           <div className="backdrop-blur-lg bg-white/10 border border-white/20 rounded-xl p-4 shadow-xl glass-effect">
@@ -182,10 +214,10 @@ export default function HeroSection() {
           </div>
         </div>
       )}
-      
+
       <div className="container mx-auto px-4 z-10 text-center">
-        <h1 className="section-title text-white mb-10 [text-shadow:_2px_2px_4px_rgb(0,0,0,0.8)]">
-          <span className="text-accent">Resilient Pio Duran:</span>
+        <h1 className="text-white mb-10">
+          <span className="text-yellow-500">Resilient Pio Duran:</span>
           <br /> Prepared for Tomorrow
         </h1>
         <p className="text-xl text-white max-w-2xl mx-auto mb-8 [text-shadow:_1px_1px_2px_rgb(0,0,0,0.4)]">
@@ -194,8 +226,7 @@ export default function HeroSection() {
         <div className="flex flex-col sm:flex-row justify-center gap-4">
           <button
             onClick={() => {
-              const modal = document.getElementById('hotline-modal');
-              if (modal) modal.classList.remove('hidden');
+              document.getElementById('hotline-modal')?.classList.remove('hidden');
             }}
             className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-accent to-yellow-600 text-primary font-bold rounded-full shadow-lg hover:from-yellow-600 hover:to-yellow-700 transition-all duration-300 transform hover:scale-105 hover:shadow-xl active:scale-95"
           >
@@ -203,34 +234,69 @@ export default function HeroSection() {
           </button>
           <button
             onClick={() => {
-              const modal = document.getElementById('incident-modal');
-              if (modal) modal.classList.remove('hidden');
+              document.getElementById('incident-modal')?.classList.remove('hidden');
             }}
             className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-red-600 to-red-700 text-white font-bold rounded-full shadow-lg hover:from-red-700 hover:to-red-800 transition-all duration-300 transform hover:scale-105 hover:shadow-xl active:scale-95"
           >
-            <i className="fas fa-exclamation-triangle mr-2"></i> Submit an Incident
+            <i className="fas fa-exclamation-triangle mr-2"></i> Report an Incident
           </button>
         </div>
       </div>
-      
-      <div className="absolute bottom-0 left-0 right-0 bg-red-600 text-white py-2 px-3 z-20 border-b-4 border-t-4 border-accent shadow-xl">
-        <div className="container mx-auto flex items-center space-x-4">
-          <div className="flex items-center space-x-2 flex-shrink-0">
-            <i className="fas fa-exclamation-triangle text-xl text-yellow-300 animate-heartbeat"></i>
-            <span className="font-bold">WEATHER UPDATE:</span>
-          </div>
-          <div className="marquee-container flex-1">
-            <div className="marquee-content">Real-time weather update from PAGASA will appear here...</div>
+
+      {/* WEATHER TICKER — Only one rendered at a time */}
+      {weatherAlert || currentWeather ? (
+        <div
+          className={`absolute bottom-0 left-0 right-0 py-2 px-3 z-20 border-b-4 border-t-4 shadow-xl ${
+            weatherAlert
+              ? 'bg-red-700 border-red-400 text-white'
+              : 'bg-red-600 border-yellow-400 text-white'
+          }`}
+        >
+          <div className="container mx-auto flex items-center space-x-4">
+            <div className="flex items-center space-x-2 flex-shrink-0">
+              {weatherAlert ? (
+                <i className="fas fa-exclamation-triangle text-xl text-yellow-300 animate-pulse"></i>
+              ) : (
+                <i className="fas fa-cloud-sun text-xl text-yellow-300"></i>
+              )}
+              <span className="font-bold">
+                {weatherAlert ? 'WEATHER ALERT:' : 'WEATHER UPDATE:'}
+              </span>
+            </div>
+            <div className="marquee-container flex-1 overflow-hidden">
+              <div className="marquee-content whitespace-nowrap animate-marquee">
+                {weatherAlert ? (
+                  `${weatherAlert.event.toUpperCase()}: ${weatherAlert.description} (Until ${new Date(
+                    weatherAlert.end * 1000
+                  ).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })})`
+                ) : currentWeather ? (
+                  `Now: ${currentWeather.temp}°C, ${currentWeather.description.charAt(0).toUpperCase() + currentWeather.description.slice(1)}.`
+                ) : (
+                  'Weather data loading...'
+                )}
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-      
+      ) : !error ? (
+        <div className="absolute bottom-0 left-0 right-0 bg-red-600 text-white py-2 px-3 z-20 border-b-4 border-t-4 border-yellow-400 shadow-xl">
+          <div className="container mx-auto flex items-center space-x-4">
+            <div className="flex items-center space-x-2 flex-shrink-0">
+              <i className="fas fa-sync-alt fa-spin text-xl text-yellow-300"></i>
+              <span className="font-bold">LOADING WEATHER...</span>
+            </div>
+          </div>
+        </div>
+      ) : null}
+
+      {/* Bounce Arrow */}
       <div className="absolute bottom-5 left-0 right-0 flex justify-center z-10">
         <a href="#weather" className="text-white animate-bounce">
           <i className="fas fa-chevron-down text-3xl"></i>
         </a>
       </div>
-      
+
+      {/* Modals */}
       {/* Incident Modal */}
       <section id="incident-modal" className="hidden fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center pt-14 mt-14 p-4">
         <div className="bg-white rounded-lg p-6 max-w-2xl w-full max-h-[90vh] overflow-y-auto">
@@ -240,8 +306,6 @@ export default function HeroSection() {
               <i className="fas fa-times"></i>
             </button>
           </div>
-
-          {/* Emergency Notice */}
           <div className="bg-red-50 border-l-4 border-red-500 p-4 mb-6 flex items-start">
             <i className="fas fa-exclamation-triangle text-red-500 text-xl mr-3 mt-1"></i>
             <div>
@@ -249,9 +313,7 @@ export default function HeroSection() {
               <p className="text-sm text-gray-700">Use this secure form to report emergencies, hazards, or disaster-related incidents within the Municipality of Pio Duran. All submissions are reviewed by MDRRMO responders.</p>
             </div>
           </div>
-
           <form id="incident-form" className="space-y-6" onSubmit={handleIncidentSubmit}>
-            {/* Personal Details */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label htmlFor="reporter-name" className="block text-sm font-medium text-gray-700 mb-1">Your Name (Required)</label>
@@ -262,17 +324,11 @@ export default function HeroSection() {
                 <input type="tel" id="contact-number" required className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" />
               </div>
             </div>
-
-            {/* Incident Details */}
             <div>
               <label htmlFor="incident-location" className="block text-sm font-medium text-gray-700 mb-1">Location of Incident</label>
               <select id="incident-location" className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 mb-2">
                 <option value="">Select Barangay</option>
                 <option value="Barangay 1">Barangay 1</option>
-                <option value="Barangay 2">Barangay 2</option>
-                <option value="Barangay 3">Barangay 3</option>
-                <option value="Barangay 4">Barangay 4</option>
-                <option value="Barangay 5">Barangay 5</option>
                 <option value="Agol">Agol</option>
                 <option value="Alabangpuro">Alabangpuro</option>
                 <option value="Basicao Coastal">Basicao Coastal</option>
@@ -284,7 +340,6 @@ export default function HeroSection() {
                 <option value="Caratagan">Caratagan</option>
                 <option value="Cuyaoyao">Cuyaoyao</option>
                 <option value="Flores">Flores</option>
-                <option value="Lawinon">Lawinon</option>
                 <option value="Lawinon">Lawinon</option>
                 <option value="Macasitas">Macasitas</option>
                 <option value="Malapay">Malapay</option>
@@ -306,7 +361,6 @@ export default function HeroSection() {
                 <i className="fas fa-location-arrow mr-1"></i> Use My Current Location
               </button>
             </div>
-
             <div>
               <label htmlFor="incident-type" className="block text-sm font-medium text-gray-700 mb-1">Type of Incident</label>
               <select id="incident-type" className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
@@ -318,13 +372,10 @@ export default function HeroSection() {
                 <option value="Others">Others</option>
               </select>
             </div>
-
             <div>
               <label htmlFor="incident-description" className="block text-sm font-medium text-gray-700 mb-1">Incident Description</label>
-              <textarea id="incident-description" rows={4} placeholder="Provide a detailed description: what happened, how many people affected, visible risks..." className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"></textarea>
+              <textarea id="incident-description" rows={4} placeholder="Provide a detailed description..." className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"></textarea>
             </div>
-
-            {/* Risk Level */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">Urgency Level</label>
               <div className="flex space-x-4">
@@ -342,8 +393,6 @@ export default function HeroSection() {
                 </label>
               </div>
             </div>
-
-            {/* Photo Upload */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">Upload Photo (Optional)</label>
               <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
@@ -384,8 +433,6 @@ export default function HeroSection() {
                 </div>
               </div>
             </div>
-
-            {/* Agreement */}
             <div className="flex items-start">
               <div className="flex items-center h-5">
                 <input id="agreement" name="agreement" type="checkbox" required className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded" />
@@ -394,8 +441,6 @@ export default function HeroSection() {
                 <label htmlFor="agreement" className="font-medium text-gray-700">I confirm that the information provided is accurate to the best of my knowledge.</label>
               </div>
             </div>
-
-            {/* Submit Button */}
             <div className="pb-14">
               <button type="submit" className="w-full bg-gradient-to-r from-red-600 to-red-700 text-white font-bold py-3 px-6 rounded-md hover:from-red-700 hover:to-red-800 transition duration-300">
                 Submit Report
@@ -427,18 +472,13 @@ export default function HeroSection() {
       {/* Emergency Hotline Modal */}
       <div id="hotline-modal" className="hidden fixed inset-0 z-50 bg-black bg-opacity-60 flex items-center justify-center transition-all duration-300 px-4 pt-14">
         <div className="relative bg-white rounded-2xl shadow-2xl p-6 sm:p-8 max-w-lg w-full animate-fadeIn">
-          {/* Close Button */}
           <button onClick={closeModals} className="absolute top-4 right-4 text-gray-400 hover:text-red-500 text-2xl">
             <i className="fas fa-times-circle"></i>
           </button>
-
-          {/* Modal Header */}
           <div className="flex items-center gap-4 mb-6">
             <img src="https://img.icons8.com/color/96/emergency-call.png" alt="Hotline Icon" className="w-12 h-12" />
             <h3 className="text-2xl font-bold text-blue-950">Emergency Hotlines</h3>
           </div>
-
-          {/* Hotline List */}
           <div className="space-y-4 text-gray-800 text-sm">
             <div className="flex items-start gap-3 bg-blue-50 rounded-lg p-3 hover:shadow-md transition duration-300">
               <img src="/images/design-mode/administrator-male.png" alt="dail..." className="w-6 h-6 mt-1" />
@@ -471,9 +511,9 @@ export default function HeroSection() {
           </div>
         </div>
       </div>
-      
+
+      {/* Styles */}
       <style jsx>{`
-        /* Glass effect */
         .glass-effect {
           background: rgba(255, 255, 255, 0.1);
           backdrop-filter: blur(10px);
@@ -481,73 +521,34 @@ export default function HeroSection() {
           border: 1px solid rgba(255, 255, 255, 0.2);
           box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
         }
-        
-        /* Marquee Animation */
         .marquee-container {
           overflow: hidden;
           white-space: nowrap;
         }
-        
         .marquee-content {
           display: inline-block;
           padding-left: 100%;
           animation: marquee 15s linear infinite;
         }
-        
         @keyframes marquee {
-          0% {
-            transform: translateX(0);
-          }
-          100% {
-            transform: translateX(-100%);
-          }
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-100%); }
         }
-        
-        /* Heartbeat Animation */
         .animate-heartbeat {
           animation: heartbeat 1.5s ease-in-out infinite;
         }
-        
         @keyframes heartbeat {
-          0% {
-            transform: scale(1);
-          }
-          5% {
-            transform: scale(1.1);
-          }
-          10% {
-            transform: scale(1);
-          }
-          15% {
-            transform: scale(1.1);
-          }
-          20% {
-            transform: scale(1);
-          }
-          100% {
-            transform: scale(1);
-          }
+          0%, 10%, 20%, 100% { transform: scale(1); }
+          5%, 15% { transform: scale(1.1); }
         }
-        
-        /* Fade In Animation */
         .animate-fadeIn {
           animation: fadeIn 0.3s ease-out;
         }
-        
         @keyframes fadeIn {
-          from {
-            opacity: 0;
-            transform: translateY(-10px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
+          from { opacity: 0; transform: translateY(-10px); }
+          to { opacity: 1; transform: translateY(0); }
         }
       `}</style>
     </section>
-  )
-}
-function closeModals() {
-  throw new Error('Function not implemented.');
+  );
 }

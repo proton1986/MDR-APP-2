@@ -10,33 +10,34 @@ interface AdminSidebarProps {
 export default function AdminSidebar({ isOpen, onClose, activeSection, onSectionChange }: AdminSidebarProps) {
   // Update menuItems to reflect ADMIN-UPDATE structure
   const menuItems = [
-    { id: "dashboard", icon: "fas fa-tachometer-alt", label: "Dashboard", active: true },
-    { id: "analytics", icon: "fas fa-chart-line", label: "Analytics" },
-    { id: "personnel", icon: "fas fa-users", label: "Personnel Directory" },
-    { id: "teams", icon: "fas fa-user-check", label: "Team Assignments" },
-    { id: "schedules", icon: "fas fa-calendar-check", label: "Schedules" },
-    { id: "alerts", icon: "fas fa-exclamation-triangle", label: "Emergency Alerts" },
-    { id: "warnings", icon: "fas fa-bullhorn", label: "Public Warnings" },
-    { id: "weather", icon: "fas fa-satellite", label: "Weather Advisories" },
-    { id: "incidents", icon: "fas fa-file-medical", label: "Reported Incidents" },
-    { id: "incident-map", icon: "fas fa-map-marked", label: "Incident Map" },
-    { id: "response", icon: "fas fa-tasks", label: "Response Tracking" },
-    { id: "feedback", icon: "fas fa-comment-alt", label: "Public Feedback" },
-    { id: "feedback-analytics", icon: "fas fa-chart-bar", label: "Feedback Analytics" },
-    { id: "surveys", icon: "fas fa-envelope-open-text", label: "Survey Responses" },
-    { id: "news", icon: "fas fa-newspaper", label: "News & Updates" },
-    { id: "activities", icon: "fas fa-calendar-alt", label: "Activities" },
-    { id: "gallery", icon: "fas fa-images", label: "Gallery" },
-    { id: "videos", icon: "fas fa-video", label: "Videos" },
-    { id: "resources", icon: "fas fa-file-alt", label: "Resources" },
-    { id: "maps", icon: "fas fa-map-marked", label: "Maps" },
-    { id: "hotlines", icon: "fas fa-phone-alt", label: "Hotline Numbers" },
-    // Admin section
-    { id: "management", icon: "fas fa-cogs", label: "Management Center" },
-    { id: "admin", icon: "fas fa-user-shield", label: "Admin" },
-    { id: "settings", icon: "fas fa-cog", label: "General Settings" },
-    { id: "profile", icon: "fas fa-user", label: "Profile" },
-    { id: "logout", icon: "fas fa-sign-out-alt", label: "Logout" },
+  { id: "dashboard", icon: "fas fa-tachometer-alt", label: "Dashboard", active: true },
+  { id: "personnel", icon: "fas fa-users", label: "Personnel Directory" },
+  { id: "teams", icon: "fas fa-user-check", label: "Team Assignments" },
+  { id: "schedules", icon: "fas fa-calendar-check", label: "Schedules" },
+  { id: "alerts", icon: "fas fa-exclamation-triangle", label: "Emergency Alerts" },
+  { id: "activities", icon: "fas fa-calendar-alt", label: "Activities" },
+  { id: "gallery", icon: "fas fa-images", label: "Gallery" },
+  { id: "resources", icon: "fas fa-file-alt", label: "Resources" },
+  { id: "maps", icon: "fas fa-map-marked", label: "Maps" },
+  { id: "hotline-management", icon: "fas fa-phone-alt", label: "Hotline Numbers" },
+  { id: "incident-management", icon: "fas fa-file-medical", label: "Incident Management" },
+  { id: "incident-map-management", icon: "fas fa-map-marked", label: "Incident Map" },
+  { id: "incidents-management", icon: "fas fa-file-medical", label: "Incidents" },
+  { id: "management", icon: "fas fa-cogs", label: "Management Center" },
+  { id: "news-management", icon: "fas fa-newspaper", label: "News & Updates" },
+  { id: "feedback-analytics-management", icon: "fas fa-chart-bar", label: "Feedback Analytics" },
+  { id: "public-feedback-management", icon: "fas fa-comment-alt", label: "Public Feedback" },
+  { id: "response-tracking-management", icon: "fas fa-tasks", label: "Response Tracking" },
+  { id: "survey-responses-management", icon: "fas fa-envelope-open-text", label: "Survey Responses" },
+  { id: "video-management", icon: "fas fa-video", label: "Videos" },
+  { id: "volunteer-management", icon: "fas fa-user-check", label: "Volunteers" },
+  { id: "contact-management", icon: "fas fa-address-book", label: "Contacts" },
+  { id: "announcement-management", icon: "fas fa-bullhorn", label: "Announcements" },
+  { id: "documents-management", icon: "fas fa-file-alt", label: "Documents" },
+  { id: "events-management", icon: "fas fa-calendar-alt", label: "Events" },
+  { id: "image-upload", icon: "fas fa-upload", label: "Image Upload" },
+  { id: "profile", icon: "fas fa-user", label: "Profile" },
+  { id: "logout", icon: "fas fa-sign-out-alt", label: "Logout" },
   ];
 
   return (
@@ -50,7 +51,7 @@ export default function AdminSidebar({ isOpen, onClose, activeSection, onSection
       )}
 
       <aside
-        className={`fixed left-0 top-0 h-full w-72 sm:w-80 lg:w-64 bg-blue-950 text-white z-50 transform transition-transform duration-300 ease-in-out shadow-2xl lg:shadow-xl ${
+        className={`fixed left-0 top-0 h-full bg-blue-950 text-white z-50 transform transition-transform duration-300 ease-in-out shadow-2xl lg:shadow-xl ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         } lg:translate-x-0 lg:static lg:z-auto`}
         aria-label="Admin Navigation"
@@ -67,7 +68,7 @@ export default function AdminSidebar({ isOpen, onClose, activeSection, onSection
           </div>
         </div>
 
-        <nav className="flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-blue-800 scrollbar-track-blue-900 pb-3">
+        <nav className="flex-1 bg-blue-950 overflow-y-auto scrollbar-thin scrollbar-thumb-blue-100 scrollbar-track-blue-900 pb-15">
           <div className="px-2 sm:px-4 py-2 text-blue-300 text-xs uppercase font-semibold tracking-wider">Main</div>
           {menuItems.slice(0, 2).map((item) => (
             <button
@@ -142,7 +143,7 @@ export default function AdminSidebar({ isOpen, onClose, activeSection, onSection
           <div className="px-2 sm:px-4 py-2 text-blue-300 text-xs uppercase font-semibold tracking-wider mt-4">
             Admin
           </div>
-          {menuItems.slice(20, 21).map((item) => (
+          {menuItems.slice(20, 25).map((item) => (
             <button
               key={item.id}
               onClick={() => {

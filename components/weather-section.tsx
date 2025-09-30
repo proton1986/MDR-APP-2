@@ -146,10 +146,10 @@ export default function WeatherSection() {
   }
 
   return (
-    <section className="bg-white">
+    <section className="bg-background">
       <div className="container mx-auto px-2 py-4">
-        <div className="max-w-6xl mx-auto">
-          <div className="bg-yellow-500 border border-blue-900 rounded-xl shadow-sm overflow-hidden">
+        <div className="mx-auto">
+          <div className="bg-gray-200 border border-blue-900 shadow-sm overflow-hidden">
             {/* Elegant pattern background */}
             <div className="absolute inset-0 opacity-3" style={{
               backgroundImage: `radial-gradient(circle at 10px 10px, #6b7280 1px, transparent 1px)`,
@@ -157,26 +157,29 @@ export default function WeatherSection() {
             }}></div>
             
             {/* Header */}
-            <div className="p-3 bg-blue-900 border-b border-yellow-500 relative">
-              <div className="flex flex-wrap items-center justify-between gap-3">
-                <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 bg-blue-900 rounded-full"></div>
+            <div className="p-3 bg-blue-950 border-b border-yellow-500 relative">
+              <div className="flex flex-wrap items-center justify-between gap-8">
+                <div className="flex items-center gap-4">
+                  <div className="w-2 h-2 bg-green-500 rounded-full"></div>
                   <h2 className="text-base font-bold text-yellow-500">5-Day Weather Forecast</h2>
                   <span className="text-xs bg-yellow-300 px-2 py-1 rounded-full text-blue-950">{location}</span>
                 </div>
                 {currentWeather ? (
                   <div className="flex items-center gap-4">
                     <div className="flex items-center gap-2">
+                     <div>
+                       <div className="text-xl font-bold text-yellow-500 animate-pulse-glow">{currentWeather.temp}°C</div>
+                      </div>
                       <div className="p-1.5 bg-yellow-500 rounded-lg">
                         {getWeatherIcon(currentWeather.icon)}
                       </div>
-                      <div>
-                        <div className="text-lg font-bold text-gray-100">{currentWeather.temp}°C</div>
-                        <div className="text-xs text-gray-200 capitalize">{currentWeather.description}</div>
+                    <div>
+
+                        <div className="text-md text-gray-200 capitalize">{currentWeather.description}</div>
                       </div>
                     </div>
                     <div className="text-right">
-                      <div className="text-xs text-gray-200">{currentWeather.date}</div>
+                      <div className="text-md text-gray-200">{currentWeather.date}</div>
                     </div>
                   </div>
                 ) : (
@@ -191,7 +194,7 @@ export default function WeatherSection() {
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2 p-3">
               {loading ? (
                 [1, 2, 3, 4, 5].map((day) => (
-                  <div key={day} className="text-center p-2 rounded-lg bg-blue-500 border border-blue-900 animate-pulse h-24"></div>
+                  <div key={day} className="text-center p-5 rounded-lg bg-blue-950 border border-blue-900 animate-pulse h-24"></div>
                 ))
               ) : (
                 forecast.map((day, index) => (
@@ -235,7 +238,7 @@ export default function WeatherSection() {
                       </a>
                     </p>
                   </div>
-                  <div className="text-xs text-green-400 ">
+                  <div className="text-md text-green-400 ">
                     Live
                   </div>
                 </div>

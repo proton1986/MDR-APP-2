@@ -4,6 +4,7 @@ import { useState } from "react"
 import AdminSidebar from "./admin-sidebar"
 import AdminHeader from "./admin-header"
 import AdminContent from "./admin-content"
+import AdminHome from "./admin-home"
 
 function AdminDashboard() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
@@ -18,7 +19,7 @@ function AdminDashboard() {
   return (
     <div className="flex h-screen bg-blue-50">
       {/* Sidebar: independent scroll */}
-      <div className="h-full w-72 sm:w-80 lg:w-64 flex-shrink-0">
+      <div className="h-full w-auto sm:w-80 lg:w-64 flex-shrink-0">
         <div className="h-full overflow-y-auto">
           <AdminSidebar
             isOpen={sidebarOpen}

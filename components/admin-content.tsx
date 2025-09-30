@@ -1,10 +1,29 @@
-import PersonnelManagement from "./admin/personnel-management"
-import TeamsManagement from "./admin/teams-management"
-import SchedulesManagement from "./admin/schedules-management"
+import ActivitiesManagement from "./admin/activities-management"
 import AlertsManagement from "./admin/alerts-management"
+import AnnouncementManagement from "./admin/announcement-management"
+import ContactManagement from "./admin/contact-management"
+import DocumentsManagement from "./admin/documents-management"
+import EventsManagement from "./admin/events-management"
+import FeedbackAnalyticsManagement from "./admin/feedback-analytics-management"
+import GalleryManagement from "./admin/gallery-management"
+import HotlineManagement from "./admin/hotline-management"
+import IncidentManagement from "./admin/incident-management"
+import IncidentMapManagement from "./admin/incident-map-management"
 import IncidentsManagement from "./admin/incidents-management"
 import ManagementDashboard from "./admin/management-dashboard"
-// Import other management components as they are created
+import ManagementContent from "./admin/management-content"
+import ManagementSidebar from "./admin/management-sidebar"
+import MapsManagement from "./admin/maps-management"
+import NewsManagement from "./admin/news-management"
+import PersonnelManagement from "./admin/personnel-management"
+import PublicFeedbackManagement from "./admin/public-feedback-management"
+import ResourcesManagement from "./admin/resources-management"
+import ResponseTrackingManagement from "./admin/response-tracking-management"
+import SchedulesManagement from "./admin/schedules-management"
+import SurveyResponsesManagement from "./admin/survey-responses-management"
+import TeamsManagement from "./admin/teams-management"
+import VideoManagement from "./admin/video-management"
+import VolunteerManagement from "./admin/volunteer-management"
 
 interface AdminContentProps {
   activeSection: string
@@ -15,8 +34,6 @@ export default function AdminContent({ activeSection }: AdminContentProps) {
     switch (activeSection) {
       case "dashboard":
         return <DashboardContent />
-      case "analytics":
-        return <AnalyticsContent />
       case "personnel":
         return <PersonnelManagement />
       case "teams":
@@ -25,44 +42,48 @@ export default function AdminContent({ activeSection }: AdminContentProps) {
         return <SchedulesManagement />
       case "alerts":
         return <AlertsManagement />
-      case "warnings":
-        return <WarningsManagement />
-      case "weather":
-        return <WeatherManagement />
-      case "incidents":
-        return <IncidentsManagement />
-      case "incident-map":
-        return <IncidentMapManagement />
-      case "response":
-        return <ResponseManagement />
-      case "feedback":
-        return <FeedbackManagement />
-      case "feedback-analytics":
-        return <FeedbackAnalyticsManagement />
-      case "surveys":
-        return <SurveysManagement />
-      case "news":
-        return <NewsManagement />
       case "activities":
         return <ActivitiesManagement />
       case "gallery":
         return <GalleryManagement />
-      case "videos":
-        return <VideosManagement />
       case "resources":
         return <ResourcesManagement />
       case "maps":
         return <MapsManagement />
-      case "hotlines":
-        return <HotlinesManagement />
-      case "admin":
-        return <AdminManagement />
-      case "settings":
-        return <SettingsManagement />
-      case "profile":
-        return <ProfileManagement />
+      case "hotline-management":
+        return <HotlineManagement />
+      case "incident-management":
+        return <IncidentManagement />
+      case "incident-map-management":
+        return <IncidentMapManagement />
+      case "incidents-management":
+        return <IncidentsManagement />
       case "management":
         return <ManagementDashboard />
+      case "news-management":
+        return <NewsManagement />
+      case "feedback-analytics-management":
+        return <FeedbackAnalyticsManagement />
+      case "public-feedback-management":
+        return <PublicFeedbackManagement />
+      case "response-tracking-management":
+        return <ResponseTrackingManagement />
+      case "survey-responses-management":
+        return <SurveyResponsesManagement />
+      case "video-management":
+        return <VideoManagement />
+      case "volunteer-management":
+        return <VolunteerManagement />
+      case "contact-management":
+        return <ContactManagement />
+      case "announcement-management":
+        return <AnnouncementManagement />
+      case "documents-management":
+        return <DocumentsManagement />
+      case "events-management":
+        return <EventsManagement />
+      case "image-upload":
+        return <ImageUpload />
       default:
         return <DashboardContent />
     }
@@ -194,186 +215,78 @@ function DashboardContent() {
           </div>
         </div>
       </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+        <div className="bg-white rounded-xl shadow-sm p-4 sm:p-6">
+          <h2 className="text-lg sm:text-xl font-bold text-blue-950 mb-4 sm:mb-6">Upcoming Events</h2>
+          <div className="space-y-4">
+            <div className="border-l-4 border-blue-950 pl-4 py-1">
+              <h3 className="font-medium text-blue-950">Community Disaster Preparedness Training</h3>
+              <p className="text-sm text-gray-600">Dec 15, 2024 • 9:00 AM</p>
+              <p className="text-xs text-gray-500 mt-1">Barangay Hall, Poblacion</p>
+            </div>
+            <div className="border-l-4 border-yellow-500 pl-4 py-1">
+              <h3 className="font-medium text-blue-950">Emergency Equipment Check</h3>
+              <p className="text-sm text-gray-600">Dec 18, 2024 • 2:00 PM</p>
+              <p className="text-xs text-gray-500 mt-1">MDRRMO Office</p>
+            </div>
+            <div className="border-l-4 border-green-500 pl-4 py-1">
+              <h3 className="font-medium text-blue-950">Monthly Coordination Meeting</h3>
+              <p className="text-sm text-gray-600">Dec 20, 2024 • 10:00 AM</p>
+              <p className="text-xs text-gray-500 mt-1">Conference Room</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-white rounded-xl shadow-sm p-4 sm:p-6">
+          <h2 className="text-lg sm:text-xl font-bold text-blue-950 mb-4 sm:mb-6">Weather Overview</h2>
+          <div className="flex items-center justify-between mb-4">
+            <div>
+              <p className="text-2xl font-bold text-blue-950">28°C</p>
+              <p className="text-sm text-gray-600">Partly Cloudy</p>
+            </div>
+            <div className="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center">
+              <i className="fas fa-cloud-sun text-yellow-600 text-2xl"></i>
+            </div>
+          </div>
+          <div className="grid grid-cols-3 gap-2">
+            <div className="text-center">
+              <p className="text-sm text-gray-600">Humidity</p>
+              <p className="font-medium">78%</p>
+            </div>
+            <div className="text-center">
+              <p className="text-sm text-gray-600">Wind</p>
+              <p className="font-medium">12 km/h</p>
+            </div>
+            <div className="text-center">
+              <p className="text-sm text-gray-600">Rain</p>
+              <p className="font-medium">10%</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="mt-6 sm:mt-8 bg-white rounded-xl shadow-sm p-4 sm:p-6">
+        <h2 className="text-lg sm:text-xl font-bold text-blue-950 mb-4 sm:mb-6">Incident Reports Summary</h2>
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <div className="text-center p-4 bg-red-50 rounded-lg">
+            <p className="text-2xl font-bold text-red-600">12</p>
+            <p className="text-sm text-gray-600">Flood Reports</p>
+          </div>
+          <div className="text-center p-4 bg-orange-50 rounded-lg">
+            <p className="text-2xl font-bold text-orange-600">5</p>
+            <p className="text-sm text-gray-600">Landslide Reports</p>
+          </div>
+          <div className="text-center p-4 bg-blue-50 rounded-lg">
+            <p className="text-2xl font-bold text-blue-600">8</p>
+            <p className="text-sm text-gray-600">Road Incidents</p>
+          </div>
+          <div className="text-center p-4 bg-green-50 rounded-lg">
+            <p className="text-2xl font-bold text-green-600">3</p>
+            <p className="text-sm text-gray-600">Other Reports</p>
+          </div>
+        </div>
+      </div>
     </>
-  )
-}
-
-function AnalyticsContent() {
-  return (
-    <div className="text-center py-12">
-      <i className="fas fa-chart-line text-gray-400 text-4xl mb-4"></i>
-      <h2 className="text-xl font-bold text-blue-950 mb-2">Analytics Dashboard</h2>
-      <p className="text-gray-500">Analytics and reporting features coming soon.</p>
-    </div>
-  )
-}
-
-function WarningsManagement() {
-  return (
-    <div className="text-center py-12">
-      <i className="fas fa-bullhorn text-gray-400 text-4xl mb-4"></i>
-      <h2 className="text-xl font-bold text-blue-950 mb-2">Public Warnings</h2>
-      <p className="text-gray-500">Public warning management system coming soon.</p>
-    </div>
-  )
-}
-
-function WeatherManagement() {
-  return (
-    <div className="text-center py-12">
-      <i className="fas fa-satellite text-gray-400 text-4xl mb-4"></i>
-      <h2 className="text-xl font-bold text-blue-950 mb-2">Weather Advisories</h2>
-      <p className="text-gray-500">Weather advisory management system coming soon.</p>
-    </div>
-  )
-}
-
-function IncidentMapManagement() {
-  return (
-    <div className="text-center py-12">
-      <i className="fas fa-map-marked text-gray-400 text-4xl mb-4"></i>
-      <h2 className="text-xl font-bold text-blue-950 mb-2">Incident Map</h2>
-      <p className="text-gray-500">Interactive incident mapping system coming soon.</p>
-    </div>
-  )
-}
-
-function ResponseManagement() {
-  return (
-    <div className="text-center py-12">
-      <i className="fas fa-tasks text-gray-400 text-4xl mb-4"></i>
-      <h2 className="text-xl font-bold text-blue-950 mb-2">Response Tracking</h2>
-      <p className="text-gray-500">Response tracking and coordination system coming soon.</p>
-    </div>
-  )
-}
-
-function FeedbackManagement() {
-  return (
-    <div className="text-center py-12">
-      <i className="fas fa-comment-alt text-gray-400 text-4xl mb-4"></i>
-      <h2 className="text-xl font-bold text-blue-950 mb-2">Public Feedback</h2>
-      <p className="text-gray-500">Public feedback management system coming soon.</p>
-    </div>
-  )
-}
-
-function FeedbackAnalyticsManagement() {
-  return (
-    <div className="text-center py-12">
-      <i className="fas fa-chart-bar text-gray-400 text-4xl mb-4"></i>
-      <h2 className="text-xl font-bold text-blue-950 mb-2">Feedback Analytics</h2>
-      <p className="text-gray-500">Feedback analytics and insights coming soon.</p>
-    </div>
-  )
-}
-
-function SurveysManagement() {
-  return (
-    <div className="text-center py-12">
-      <i className="fas fa-envelope-open-text text-gray-400 text-4xl mb-4"></i>
-      <h2 className="text-xl font-bold text-blue-950 mb-2">Survey Responses</h2>
-      <p className="text-gray-500">Survey management system coming soon.</p>
-    </div>
-  )
-}
-
-function NewsManagement() {
-  return (
-    <div className="text-center py-12">
-      <i className="fas fa-newspaper text-gray-400 text-4xl mb-4"></i>
-      <h2 className="text-xl font-bold text-blue-950 mb-2">News & Updates</h2>
-      <p className="text-gray-500">News management system coming soon.</p>
-    </div>
-  )
-}
-
-function ActivitiesManagement() {
-  return (
-    <div className="text-center py-12">
-      <i className="fas fa-calendar-alt text-gray-400 text-4xl mb-4"></i>
-      <h2 className="text-xl font-bold text-blue-950 mb-2">Activities</h2>
-      <p className="text-gray-500">Activities management system coming soon.</p>
-    </div>
-  )
-}
-
-function GalleryManagement() {
-  return (
-    <div className="text-center py-12">
-      <i className="fas fa-images text-gray-400 text-4xl mb-4"></i>
-      <h2 className="text-xl font-bold text-blue-950 mb-2">Gallery</h2>
-      <p className="text-gray-500">Gallery management system coming soon.</p>
-    </div>
-  )
-}
-
-function VideosManagement() {
-  return (
-    <div className="text-center py-12">
-      <i className="fas fa-video text-gray-400 text-4xl mb-4"></i>
-      <h2 className="text-xl font-bold text-blue-950 mb-2">Videos</h2>
-      <p className="text-gray-500">Video management system coming soon.</p>
-    </div>
-  )
-}
-
-function ResourcesManagement() {
-  return (
-    <div className="text-center py-12">
-      <i className="fas fa-file-alt text-gray-400 text-4xl mb-4"></i>
-      <h2 className="text-xl font-bold text-blue-950 mb-2">Resources</h2>
-      <p className="text-gray-500">Resource management system coming soon.</p>
-    </div>
-  )
-}
-
-function MapsManagement() {
-  return (
-    <div className="text-center py-12">
-      <i className="fas fa-map-marked text-gray-400 text-4xl mb-4"></i>
-      <h2 className="text-xl font-bold text-blue-950 mb-2">Maps</h2>
-      <p className="text-gray-500">Maps management system coming soon.</p>
-    </div>
-  )
-}
-
-function HotlinesManagement() {
-  return (
-    <div className="text-center py-12">
-      <i className="fas fa-phone-alt text-gray-400 text-4xl mb-4"></i>
-      <h2 className="text-xl font-bold text-blue-950 mb-2">Hotline Numbers</h2>
-      <p className="text-gray-500">Hotline management system coming soon.</p>
-    </div>
-  )
-}
-
-function AdminManagement() {
-  return (
-    <div className="text-center py-12">
-      <i className="fas fa-user-shield text-gray-400 text-4xl mb-4"></i>
-      <h2 className="text-xl font-bold text-blue-950 mb-2">Admin Management</h2>
-      <p className="text-gray-500">Admin user management system coming soon.</p>
-    </div>
-  )
-}
-
-function SettingsManagement() {
-  return (
-    <div className="text-center py-12">
-      <i className="fas fa-cog text-gray-400 text-4xl mb-4"></i>
-      <h2 className="text-xl font-bold text-blue-950 mb-2">General Settings</h2>
-      <p className="text-gray-500">System settings and configuration coming soon.</p>
-    </div>
-  )
-}
-
-function ProfileManagement() {
-  return (
-    <div className="text-center py-12">
-      <i className="fas fa-user text-gray-400 text-4xl mb-4"></i>
-      <h2 className="text-xl font-bold text-blue-950 mb-2">Profile Settings</h2>
-      <p className="text-gray-500">Profile management system coming soon.</p>
-    </div>
   )
 }

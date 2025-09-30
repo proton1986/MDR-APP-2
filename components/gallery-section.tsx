@@ -92,11 +92,11 @@ const GallerySection = () => {
           <div className="h-2 w-full bg-yellow-500" />
 
           {/* Main content */}
-          <div className="bg-[#012184] text-white p-6 flex flex-col items-center justify-center">
-            <h2 className="text-3xl md:text-4xl font-bold text-yellow-500 mb-2 text-center drop-shadow-lg">
+        <div className="bg-white text-white p-6 flex flex-col items-center justify-center">
+            <h1 className="section-title text-3xl md:text-4xl font-bold text-gray-900 mb-4">
               Our Activities & Events
-            </h2>
-            <p className="text-[#fff] text-sm text-center">
+            </h1>
+            <p className="text-gray-600 max-w-2xl mx-auto text-lg">
               Photos from disaster preparedness activities
             </p>
           </div>
@@ -128,9 +128,9 @@ const GallerySection = () => {
         </div>
 
         {/* Call to Action Section */}
-        <div className="bg-gray-200 py-2 px-6 flex justify-center gap-5">
+  <div className="relative flex inset-0 bg-gray-200 py-2 px-6 flex justify-center items-center gap-6">
           <Link href="/resources/gallery" passHref>
-            <button className="flex items-center gap-2 bg-[#012184] hover:bg-blue-900 text-white font-medium py-2 px-6 rounded-lg transition-colors duration-300 shadow-md text-sm">
+            <button className="flex items-center gap-4 bg-[#012184] hover:bg-blue-900 text-white font-medium py-2 px-6 rounded-lg transition-colors duration-300 shadow-md text-sm">
               <GalleryHorizontal size={18} />
               Visit Gallery
             </button>

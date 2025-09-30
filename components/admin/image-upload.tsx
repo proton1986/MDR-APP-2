@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Upload, X, ImageIcon } from "lucide-react"
-import { uploadImage } from "@/lib/cloudinary"
+
 
 interface ImageUploadProps {
   onImageUploaded?: (url: string) => void

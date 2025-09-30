@@ -3,41 +3,41 @@ import Image from "next/image"
 export default function NewsSection() {
   const newsItems = [
     {
-      id: 1,
-      title: "First Aid Training Successfully Conducted in Brgy. Hal",
-      excerpt: "Residents of Brgy. Hal participated in a comprehensive first aid training session to enhance community preparedness.",
-      date: "2024-08-15",
-      category: "Community Training",
-      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=640&h=360&fit=crop",
-      alt: "Community members participating in first aid training session in Brgy. Hal"
-    },
-    {
-      id: 2,
-      title: "Pio Duran Holds Municipal-wide Earthquake Drill",
-      excerpt: "The entire municipality participated in an earthquake drill to test and improve our emergency response protocols.",
-      date: "2024-09-05",
-      category: "Drills",
-      image: "https://images.unsplash.com/photo-1504805572947-34fad45aed93?w=640&h=360&fit=crop",
-      alt: "Municipal earthquake drill participants practicing emergency response procedures"
-    },
-    {
-      id: 3,
-      title: "Flood Control Measures Implemented Across Low-lying Areas",
-      excerpt: "New flood barriers and drainage systems have been installed to protect vulnerable communities during heavy rainfall.",
-      date: "2024-09-12",
-      category: "Infrastructure",
-      image: "https://images.unsplash.com/photo-1529974147920-1b643f03bd3d?w=640&h=360&fit=crop",
-      alt: "Flood control infrastructure being installed in low-lying areas"
-    },
-    {
-      id: 4,
-      title: "MDRRMO Conducts Disaster Preparedness Seminar for Schools",
-      excerpt: "Local schools participated in a comprehensive disaster preparedness seminar to ensure student safety during emergencies.",
-      date: "2024-09-18",
-      category: "Education",
-      image: "https://images.unsplash.com/photo-1517507592943-83852b090561?w=640&h=360&fit=crop",
-      alt: "Students and teachers attending disaster preparedness seminar"
-    }
+  id: 1,
+  title: "Pio Duran Prepacking Food Packs for #OpongPH Relief",
+  excerpt: "The LGU of Pio Duran has begun unloading food packs for relief operations in preparation for the expected landfall of Severe Tropical Storm #OpongPH.",
+  date: "2025-09-25",
+  category: "Disaster Preparedness",
+  image: "https://hqgprclcbzdkifryjbbv.supabase.co/storage/v1/object/public/mdrrmo-images/555527036_122194756010442336_5223210281996700861_n.webp?w=640&h=360&fit=crop",
+  alt: "Relief goods and food packs being prepared for storm Opong in Pio Duran"
+},
+{
+  id: 2,
+  title: "Trucks Stranded in Pio Duran as Storm Makes Landfall in Masbate",
+  excerpt: "A long line of trucks bound for Masbate was stranded in Pio Duran, Albay, following the second landfall of Severe Tropical Storm Opong in Palanas, Masbate.",
+  date: "2025-09-26",
+  category: "Storm Impact",
+  image: "https://hqgprclcbzdkifryjbbv.supabase.co/storage/v1/object/public/mdrrmo-images/553128686_122194702082442336_7305770528192399375_n.webp",
+  alt: "Stranded trucks in Pio Duran due to tropical storm Opong"
+},
+{
+  id: 3,
+  title: "MDRRMO Pio Duran, Albay conduct BDRRMP Training/Seminar",
+  excerpt: "MDRRMO Pioduran, led by Mr. Noel F. Ordona, conducted Barangay Disaster Risk Reduction and Management Planning (BDRRMP) Training/Seminar in Barangay Rawis.",
+  date: "2025-09-11",
+  category: "Community Training",
+  image: "https://hqgprclcbzdkifryjbbv.supabase.co/storage/v1/object/public/mdrrmo-images/541045673_1184186697071812_6224742840574434577_n.webp?w=640&h=360&fit=crop",
+  alt: "Fire truck orientation and hose management training for OJT students"
+},
+{
+  id: 4,
+  title: "Albay's Vulnerable Sectors Equipped for Disasters Through Forum",
+  excerpt: "Senior citizens and PWDs in Albay participated in a disaster preparedness forum with PAGASA and PHIVOLCS to enhance emergency response knowledge.",
+  date: "2025-09-28",
+  category: "Education",
+  image: "https://hqgprclcbzdkifryjbbv.supabase.co/storage/v1/object/public/mdrrmo-images/532508660_122187820424442336_7245000719938064814_n.webp?w=640&h=360&fit=crop",
+  alt: "Senior citizens and PWDs participating in a disaster preparedness forum"
+}
   ];
 
   const formatDate = (dateString) => {

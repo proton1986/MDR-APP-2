@@ -51,7 +51,7 @@ const menuItems = [
   { id: "volunteer-management", label: "Volunteers", icon: Activity, description: "Manage volunteers" },
 ];
 
-export function ManagementSidebar({ activeSection, onSectionChange }: ManagementSidebarProps) {
+export default function ManagementSidebar({ activeSection, onSectionChange }: ManagementSidebarProps) {
   const [expandedSections, setExpandedSections] = useState<string[]>([]);
 
   const toggleSection = (id: string) => {
