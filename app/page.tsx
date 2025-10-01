@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import HeroSection from "@/components/hero-section"
 import WeatherSection from "@/components/weather-section"
 import QuickLinks from "@/components/quick-links"
+import WeatherEarthquakeDashboard from "@/components/WeatherEarthquakeDashboard"
 import AboutSection from "@/components/about-section"
 import NewsSection from "@/components/news-section"
 import CalendarSection from "@/components/calendar-section"
@@ -24,6 +25,7 @@ export default function HomePage() {
         <HeroSection />
         <QuickLinks />
         <WeatherSection />
+        <WeatherEarthquakeDashboard />
         <AboutSection />
         <NewsSection />
         <CalendarSection />
