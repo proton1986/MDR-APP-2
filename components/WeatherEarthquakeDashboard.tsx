@@ -145,7 +145,7 @@ const WeatherEarthquakeDashboard = () => {
         <div className="mt-8 bg-white rounded-xl shadow-lg p-6">
           <h3 className="text-xl font-bold text-gray-900 mb-6">Quick Access</h3>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-            <a href="#" className="flex items-center p-4 border border-gray-200 rounded-lg hover:shadow-md transition-shadow">
+            <a href="https://www.pagasa.dost.gov.ph/" className="flex items-center p-4 border border-gray-200 rounded-lg hover:shadow-md transition-shadow">
               <div className="bg-blue-100 p-3 rounded-lg mr-4">
                 <Cloud className="h-6 w-6 text-blue-600" />
               </div>
@@ -163,7 +163,7 @@ const WeatherEarthquakeDashboard = () => {
                 <div className="text-sm text-gray-500">Latest events</div>
               </div>
             </a>
-            <a href="#" className="flex items-center p-4 border border-gray-200 rounded-lg hover:shadow-md transition-shadow">
+            <a href="https://www.pagasa.dost.gov.ph/tropical-cyclone/severe-weather-bulletin" className="flex items-center p-4 border border-gray-200 rounded-lg hover:shadow-md transition-shadow">
               <div className="bg-orange-100 p-3 rounded-lg mr-4">
                 <MapPin className="h-6 w-6 text-orange-600" />
               </div>
@@ -172,7 +172,7 @@ const WeatherEarthquakeDashboard = () => {
                 <div className="text-sm text-gray-500">Typhoon paths</div>
               </div>
             </a>
-            <a href="#" className="flex items-center p-4 border border-gray-200 rounded-lg hover:shadow-md transition-shadow">
+            <a href="https://www.pagasa.dost.gov.ph/tropical-cyclone-advisory-iframe" className="flex items-center p-4 border border-gray-200 rounded-lg hover:shadow-md transition-shadow">
               <div className="bg-green-100 p-3 rounded-lg mr-4">
                 <Calendar className="h-6 w-6 text-green-600" />
               </div>
