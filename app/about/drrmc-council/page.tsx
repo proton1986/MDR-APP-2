@@ -42,7 +42,7 @@ export default function DRRMCCouncilPage() {
                 <div className="w-64 h-64 md:w-80 md:h-80 bg-blue-950 rounded-full opacity-20 absolute -bottom-6 -right-6"></div>
                 <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-8 border-yellow-500 floating-animation">
                   <Image
-                    src="https://res.cloudinary.com/dedcmctqk/image/upload/v1749920979/MDRRMO_PIODURAN_eaoydr.png"
+                    src="https://images.unsplash.com/photo-1587367274642-4ff13a9291cc?w=800&h=800&fit=crop"
                     alt="MDRRMC"
                     width={320}
                     height={320}
@@ -87,7 +87,7 @@ export default function DRRMCCouncilPage() {
                     className="w-full h-full object-cover"
                   />
                 </div>
-                <div className="font-semibold mb-1">Hon. EVANGELINE C. ARANDIA</div>
+                <div className="font-semibold mb-1">Hon. Juan Dela Cruz</div>
                 <h3 className="text-xl font-bold mb-2">CHAIRPERSON</h3>
                 <p className="font-semibold">(Municipal Mayor)</p>
               </div>
@@ -102,7 +102,7 @@ export default function DRRMCCouncilPage() {
                     className="w-full h-full object-cover"
                   />
                 </div>
-                <div className="font-semibold mb-1">Hon. HENRY P. CALLOPE</div>
+                <div className="font-semibold mb-1">Hon. Maria Santos</div>
                 <h3 className="text-xl font-bold mb-2">CO-CHAIRPERSON</h3>
                 <p className="font-semibold">(Municipal Vice Mayor)</p>
               </div>
