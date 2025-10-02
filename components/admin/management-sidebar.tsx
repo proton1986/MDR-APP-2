@@ -1,25 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import {
-  MapPin,
-  Activity,
-  MessageSquare,
-  BarChart3,
-  FileText,
-  Newspaper,
-  Calendar,
-  Images,
-  Video,
-  FolderOpen,
-  Map,
-  Phone,
-  ChevronDown,
-  ChevronRight,
-  AlertTriangle,
-  Users,
-  Megaphone,
-} from "lucide-react";
+import { MapPin, Activity, MessageSquare, ChartBar as BarChart3, FileText, Newspaper, Calendar, Images, Video, FolderOpen, Map, Phone, ChevronDown, ChevronRight, TriangleAlert as AlertTriangle, Users, Megaphone } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
