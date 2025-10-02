@@ -52,19 +52,6 @@ export default function Navigation() {
     return () => document.removeEventListener("keydown", handleEscape)
   }, [])
 
-  // Handle click outside mobile menu to close
-  useEffect(() => {
-    if (!mobileMenuOpen) return;
-    function handleClickOutside(event: MouseEvent) {
-      if (mobileMenuRef.current && !mobileMenuRef.current.contains(event.target as Node)) {
-        setMobileMenuOpen(false);
-        setOpenSubmenu(null);
-      }
-    }
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [mobileMenuOpen]);
-
   return (
     <nav
       className="bg-blue-950 border-b-4 border-yellow-500 shadow-lg relative sticky top-0 z-50"
@@ -539,38 +526,14 @@ export default function Navigation() {
         )}
       </div>
 
-      {/* Mobile Menu & Backdrop */}
-      {mobileMenuOpen && (
-        <>
-          {/* Backdrop overlay */}
-          <div
-            className="fixed inset-0 bg-black bg-opacity-40 z-40 md:hidden"
-            onClick={() => {
-              setMobileMenuOpen(false);
-              setOpenSubmenu(null);
-            }}
-            aria-hidden="true"
-          />
-          {/* Mobile menu panel */}
-          <div
-            ref={mobileMenuRef}
-            className="fixed top-0 left-0 w-11/12 max-w-xs h-full bg-blue-900 border-r-4 border-yellow-500 z-50 overflow-y-auto transition-transform duration-300 md:hidden"
-            role="menu"
-            aria-label="Mobile navigation menu"
-          >
-            <div className="flex justify-end p-4">
-              <button
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  setOpenSubmenu(null);
-                }}
-                className="text-white hover:text-yellow-500 focus:outline-none"
-                aria-label="Close menu"
-              >
-                <X className="w-7 h-7" />
-              </button>
-            </div>
-            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+      {/* Mobile Menu */}
+      <div
+        ref={mobileMenuRef}
+        className={`mobile-menu md:hidden bg-blue-900 border-t border-yellow-500 ${mobileMenuOpen ? "block" : "hidden"}`}
+        role="menu"
+        aria-label="Mobile navigation menu"
+      >
+        <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
           <Link
             href="/"
             className="text-white block px-3 py-2 rounded-md text-base font-medium hover:bg-blue-800 transition-colors duration-200 focus:bg-blue-800 focus:outline-none"
@@ -907,10 +870,8 @@ export default function Navigation() {
           >
             Barangay Portal
           </Link>
-            </div>
-          </div>
-        </>
-      )}
+        </div>
+      </div>
     </nav>
   )
 }
